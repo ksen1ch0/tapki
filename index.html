@@ -128,88 +128,129 @@ footer div{flex:1;text-align:center;font-weight:500;}
 <script>
 
 const products = [
+
 {
 card: document.querySelectorAll('.card')[0],
 price: 33999,
 color: 'red',
 sizes: [38,39,40,41]
 },
+
 {
 card: document.querySelectorAll('.card')[1],
 price: 33999,
 color: 'black',
 sizes: [38,39,40,41]
 },
+
 {
 card: document.querySelectorAll('.card')[2],
 price: 33999,
 color: 'white',
 sizes: [38,39,41]
 },
+
 {
 card: document.querySelectorAll('.card')[3],
 price: 50999,
 color: 'green',
 sizes: [40,41,42]
 },
+
 {
 card: document.querySelectorAll('.card')[4],
 price: 33999,
 color: 'pink',
 sizes: [38,39,40]
 },
+
 {
 card: document.querySelectorAll('.card')[5],
 price: 20999,
 color: 'blue',
 sizes: [39,40,42]
 }
+
 ];
 
 const priceRange = document.getElementById('priceRange');
 
-const sizeCheckboxes = document.querySelectorAll('.check-group input');
+const sizeCheckboxes =
+document.querySelectorAll('.check-group input');
 
-const colorCheckboxes = document.querySelectorAll('.color-group input');
+const colorCheckboxes =
+document.querySelectorAll('.color-group input');
+
+const priceValue =
+document.getElementById('priceValue');
 
 function filterProducts(){
 
 const maxPrice = Number(priceRange.value);
 
+priceValue.innerText = maxPrice + ' ₽';
+
 const selectedSizes = [];
 
-sizeCheckboxes.forEach((checkbox,index)=>{
+sizeCheckboxes.forEach((checkbox)=>{
+
 if(checkbox.checked){
-selectedSizes.push(Number(checkbox.parentElement.textContent));
+
+selectedSizes.push(
+Number(checkbox.parentElement.textContent)
+);
+
 }
+
 });
 
-const colors = ['black','white','gray','blue','red','green'];
+const colors = [
+'black',
+'white',
+'gray',
+'blue',
+'red',
+'green',
+'pink',
+'orange',
+'brown'
+];
 
 const selectedColors = [];
 
 colorCheckboxes.forEach((checkbox,index)=>{
+
 if(checkbox.checked){
+
 selectedColors.push(colors[index]);
+
 }
+
 });
 
 products.forEach(product=>{
 
-const priceMatch = product.price <= maxPrice;
+const priceMatch =
+product.price <= maxPrice;
 
 const sizeMatch =
 selectedSizes.length === 0 ||
-product.sizes.some(size => selectedSizes.includes(size));
+product.sizes.some(size =>
+selectedSizes.includes(size)
+);
 
 const colorMatch =
 selectedColors.length === 0 ||
 selectedColors.includes(product.color);
 
 if(priceMatch && sizeMatch && colorMatch){
+
 product.card.style.display = 'block';
+
 }else{
+
 product.card.style.display = 'none';
+
 }
 
 });
@@ -218,15 +259,17 @@ product.card.style.display = 'none';
 
 priceRange.addEventListener('input',filterProducts);
 
-sizeCheckboxes.forEach(checkbox=>{
+sizeCheckboxes.forEach((checkbox)=>{
+
 checkbox.addEventListener('change',filterProducts);
+
 });
 
-colorCheckboxes.forEach(checkbox=>{
-checkbox.addEventListener('change',filterProducts);
-});
+colorCheckboxes.forEach((checkbox)=>{
 
-filterProducts();
+checkbox.addEventListener('change',filterProducts);
+
+});
 
 </script>
 </body>
