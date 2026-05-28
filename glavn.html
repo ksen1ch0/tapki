@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>НА ПОДЪЕМЕ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;font-family:'Montserrat',sans-serif;background:#9d9d9d;color:#111;display:flex;flex-direction:column;}
+header{width:100%;height:82px;background:#f8f8f8;display:flex;align-items:center;justify-content:space-between;padding:0 35px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
+.logo-wrapper{display:flex;align-items:center;gap:16px;}
+.logo-circle{width:58px;height:58px;border-radius:50%;overflow:hidden;background:white;box-shadow:0 5px 14px rgba(0,0,0,0.12);}
+.logo-circle img{width:100%;height:100%;object-fit:cover;}
+.logo-wrapper h1{font-size:22px;font-weight:800;letter-spacing:1px;}
+nav{display:flex;gap:36px;}
+nav a{text-decoration:none;color:#111;font-weight:500;transition:0.25s;position:relative;}
+nav a:hover{color:#ff5b2e;}
+nav a::after{content:'';width:0%;height:2px;background:#ff5b2e;position:absolute;left:0;bottom:-6px;transition:0.25s;}
+nav a:hover::after{width:100%;}
+.wrapper{width:93%;margin:28px auto;display:flex;gap:24px;flex:1;}
+.content{flex:1;}
+.hero{width:100%;height:430px;border-radius:34px;overflow:hidden;position:relative;display:flex;align-items:center;background:linear-gradient(90deg,rgba(245,245,245,0.95) 0%,rgba(240,240,240,0.88) 40%,rgba(235,235,235,0.45) 100%), url("hero.jpg"); background-size:cover;background-position:center right;box-shadow:0 18px 35px rgba(0,0,0,0.18);}
+.hero::before{content:'';position:absolute;width:550px;height:550px;background:rgba(255,255,255,0.35);border-radius:50%;right:-170px;top:-120px;filter:blur(12px);}
+.hero-left{width:55%;padding-left:60px;position:relative;z-index:2;}
+.hero-small{font-size:15px;letter-spacing:4px;color:#666;margin-bottom:26px;}
+.hero h2{font-size:88px;font-weight:800;line-height:1;font-style:italic;margin-bottom:26px;color:#111;}
+.hero p{font-size:34px;font-weight:500;color:#222;margin-bottom:40px;}
+.hero-btn{width:260px;height:62px;border:none;border-radius:18px;background:linear-gradient(135deg,#111,#2c2c2c);color:white;font-size:17px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:0.35s;box-shadow:0 12px 25px rgba(0,0,0,0.2);}
+.hero-btn:hover{transform:translateY(-4px);background:linear-gradient(135deg,#ff5b2e,#ff7b57);}
+.products{margin-top:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.card{background:#f4f4f4;border-radius:24px;padding:22px;position:relative;transition:0.3s;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,0.12);}
+.card:hover{transform:translateY(-8px);box-shadow:0 18px 35px rgba(0,0,0,0.18);}
+.sale{position:absolute;top:18px;right:18px;background:#ff5b2e;color:white;padding:6px 12px;border-radius:12px;font-size:12px;font-weight:700;}
+.card-top{display:flex;align-items:center;gap:18px;}
+.card img{width:160px;height:120px;object-fit:contain;transition:0.35s;}
+.card:hover img{transform:scale(1.08);}
+.card h3{font-size:22px;margin-bottom:14px;font-weight:700;}
+.price{font-size:22px;font-weight:600;margin-bottom:20px;}
+.buy-btn{width:170px;height:44px;border:none;border-radius:14px;background:linear-gradient(135deg,#111,#2b2b2b);color:white;font-size:16px;font-weight:600;cursor:pointer;transition:0.25s;}
+.buy-btn:hover{background:linear-gradient(135deg,#ff5b2e,#ff7b57);transform:scale(1.03);}
+.sidebar{width:285px;background:#f4f4f4;border-radius:28px;padding:28px;height:fit-content;position:sticky;top:100px;box-shadow:0 12px 24px rgba(0,0,0,0.14);}
+.sidebar h2{text-align:center;margin-bottom:28px;font-size:34px;}
+.filter-title{margin-top:22px;margin-bottom:14px;font-size:22px;font-weight:700;}
+select{width:100%;height:42px;border:none;border-radius:12px;background:#2b2b2b;color:white;padding:0 15px;font-size:15px;}
+.range{width:100%;accent-color:#ff5b2e;margin:12px 0;}
+.price-row{display:flex;justify-content:space-between;font-weight:500;}
+.check-group label,.color-group label{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:18px;}
+input[type="checkbox"]{width:18px;height:18px;accent-color:#ff5b2e;}
+.color-group{margin-top:12px;}
+.color-option{display:flex;align-items:center;gap:14px;margin-bottom:16px;font-size:18px;cursor:pointer;user-select:none;}
+.color-option input{display:none;}
+.color{width:24px;height:24px;border-radius:50%;border:2px solid rgba(0,0,0,0.08);transition:0.25s ease;opacity:0.9;}
+.color-option input:checked + .color{transform:scale(1.15);border:3px solid rgba(0,0,0,0.35);box-shadow:0 0 0 4px rgba(255,255,255,0.8),0 4px 10px rgba(0,0,0,0.12);opacity:1;}
+.color-option:hover .color{transform:scale(1.08);}
+/* FOOTER */
+footer{width:100%;background:#f5f5f5;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;font-size:18px;box-shadow:0 -3px 10px rgba(0,0,0,0.08);margin-top:auto;}
+footer div{flex:1;text-align:center;font-weight:500;}
+@media(max-width:1200px){.products{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:900px){.wrapper{flex-direction:column;}.sidebar{width:100%;position:relative;top:0;}.products{grid-template-columns:1fr;}.hero{height:520px;}.hero-left{width:100%;padding:40px;}.hero h2{font-size:54px;}.hero p{font-size:24px;}footer{flex-direction:column;gap:16px;}nav{display:none;}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo-wrapper"><div class="logo-circle"><img src="logo.png" alt="logo"></div><h1>НА ПОДЪЕМЕ</h1></div>
+<nav><a href="glavn.html">Главная</a><a href="katalog.html">Каталог</a><a href="onas.html">О нас</a><a href="kab.html">Личный кабинет</a></nav>
+</header>
+
+<div class="wrapper">
+<div class="content">
+<div class="hero">
+<div class="hero-left">
+<div class="hero-small">КРОССОВКИ ДЛЯ ТЕХ, КТО ВСЕГДА ВПЕРЕДИ</div>
+<h2>НА ПОДЪЕМЕ</h2>
+<p>ГОТОВЫ ПОКОРЯТЬ ЛЮБЫЕ ВЕРШИНЫ</p>
+<a href="katalog.html">
+    <button class="hero-btn">
+        ПЕРЕЙТИ В КАТАЛОГ
+    </button>
+</a>
+</div>
+</div>
+
+<div class="products">
+<div class="card"><div class="sale">NEW</div><div class="card-top"><img src="red.png"><div><h3>Nike Air Mariah</h3><div class="price">33 999 ₽</div><button class="buy-btn">Купить</button></div></div></div>
+<div class="card"><div class="sale">HOT</div><div class="card-top"><img src="black.png"><div><h3>Nike Air Mariah</h3><div class="price">33 999 ₽</div><button class="buy-btn">Купить</button></div></div></div>
+<div class="card"><div class="sale">SALE</div><div class="card-top"><img src="pinkwhite.png"><div><h3>Nike Air Mariah</h3><div class="price">33 999 ₽</div><button class="buy-btn">Купить</button></div></div></div>
+<div class="card"><div class="card-top"><img src="green.png"><div><h3>Nike Air Mariah</h3><div class="price">50 999 ₽</div><button class="buy-btn">Купить</button></div></div></div>
+<div class="card"><div class="card-top"><img src="pink.png"><div><h3>Nike Air Mariah</h3><div class="price">33 999 ₽</div><button class="buy-btn">Купить</button></div></div></div>
+<div class="card"><div class="card-top"><img src="blueorange.png"><div><h3>Nike Air Mariah</h3><div class="price">20 999 ₽</div><button class="buy-btn">Купить</button></div></div></div>
+</div>
+</div>
+
+<aside class="sidebar">
+<h2>Фильтры</h2>
+<div class="filter-title">Бренд</div>
+<select><option>Nike</option><option>Adidas</option><option>Puma</option></select>
+<div class="filter-title">Цена</div>
+<input type="range" class="range" min="0" max="60000" value="30000" id="priceRange" oninput="priceValue.innerText=this.value+' ₽'">
+<div class="price-row"><span>0 ₽</span><span id="priceValue">30000 ₽</span></div>
+<div class="filter-title">Размер</div>
+<div class="check-group">
+<label><input type="checkbox" checked>38</label>
+<label><input type="checkbox">39</label>
+<label><input type="checkbox">40</label>
+<label><input type="checkbox">41</label>
+<label><input type="checkbox">42</label>
+</div>
+<div class="filter-title">Цвет</div>
+<div class="color-group">
+<label class="color-option"><input type="checkbox"><span class="color" style="background:black;"></span>чёрный</label>
+<label class="color-option"><input type="checkbox"><span class="color" style="background:white;"></span>белый</label>
+<label class="color-option"><input type="checkbox"><span class="color" style="background:gray;"></span>серый</label>
+<label class="color-option"><input type="checkbox"><span class="color" style="background:#4da3ff;"></span>синий</label>
+<label class="color-option"><input type="checkbox"><span class="color" style="background:#ff4a4a;"></span>красный</label>
+<label class="color-option"><input type="checkbox"><span class="color" style="background:#29c24f;"></span>зелёный</label>
+</div>
+</aside>
+</div>
+
+<footer>
+<div>Телефон: +7-900-015-15-15</div>
+<div>Почта: krasovka@gmail.com</div>
+<div>Адрес: г. Угинск ул. Тамары 23</div>
+</footer>
+
+</body>
+</html>
