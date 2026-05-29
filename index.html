@@ -29,76 +29,21 @@ nav a:hover::after{width:100%;}
 .hero p{font-size:34px;font-weight:500;color:#222;margin-bottom:40px;}
 .hero-btn{width:260px;height:62px;border:none;border-radius:18px;background:linear-gradient(135deg,#111,#2c2c2c);color:white;font-size:17px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:0.35s;box-shadow:0 12px 25px rgba(0,0,0,0.2);}
 .hero-btn:hover{transform:translateY(-4px);background:linear-gradient(135deg,#ff5b2e,#ff7b57);}
-
-/* Увеличенные карточки */
-.products{
-    margin-top:30px;
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:30px;
-}
-.card{
-    background:#f4f4f4;
-    border-radius:24px;
-    padding:35px;
-    min-height:240px;
-    position:relative;
-    transition:0.3s;
-    overflow:hidden;
-    box-shadow:0 10px 24px rgba(0,0,0,0.12);
-}
-.card-top{
-    display:flex;
-    align-items:center;
-    gap:25px;
-}
-.card img{
-    width:220px;
-    height:170px;
-    object-fit:contain;
-    transition:0.35s;
-}
-.card h3{
-    font-size:30px;
-    margin-bottom:16px;
-    font-weight:700;
-}
-.price{
-    font-size:28px;
-    font-weight:600;
-    margin-bottom:24px;
-}
-.buy-btn{
-    width:200px;
-    height:52px;
-    border:none;
-    border-radius:14px;
-    background:linear-gradient(135deg,#111,#2b2b2b);
-    color:white;
-    font-size:18px;
-    font-weight:600;
-    cursor:pointer;
-}
+.products{margin-top:30px;display:grid;grid-template-columns:repeat(2,1fr);gap:30px;}
+.card{background:#f4f4f4;border-radius:24px;padding:35px;min-height:240px;position:relative;transition:0.3s;overflow:hidden;box-shadow:0 10px 24px rgba(0,0,0,0.12);}
+.card-top{display:flex;align-items:center;gap:25px;}
+.card img{width:220px;height:170px;object-fit:contain;transition:0.35s;}
+.card h3{font-size:30px;margin-bottom:16px;font-weight:700;}
+.price{font-size:28px;font-weight:600;margin-bottom:24px;}
+.buy-btn{width:200px;height:52px;border:none;border-radius:14px;background:linear-gradient(135deg,#111,#2b2b2b);color:white;font-size:18px;font-weight:600;cursor:pointer;}
+.buy-btn:hover{transform:scale(1.03);}
 .sale{position:absolute;top:18px;right:18px;background:#ff5b2e;color:white;padding:6px 12px;border-radius:12px;font-size:12px;font-weight:700;}
-
 .sidebar{width:285px;background:#f4f4f4;border-radius:28px;padding:28px;height:fit-content;position:sticky;top:100px;box-shadow:0 12px 24px rgba(0,0,0,0.14);}
 .sidebar h2{text-align:center;margin-bottom:28px;font-size:34px;}
 .filter-title{margin-top:22px;margin-bottom:14px;font-size:22px;font-weight:700;}
 select{width:100%;height:42px;border:none;border-radius:12px;background:#2b2b2b;color:white;padding:0 15px;font-size:15px;}
-.range{
-    width:100%;
-    accent-color:#ff5b2e;
-    margin:12px 0;
-    border:2px solid #ff5b2e;
-    border-radius:12px;
-    padding:4px;
-}
-.price-row{
-    display:flex;
-    justify-content:space-between;
-    font-weight:600;
-    margin-top:8px;
-}
+.range{width:100%;accent-color:#ff5b2e;margin:12px 0;border:2px solid #ff5b2e;border-radius:12px;padding:4px;}
+.price-row{display:flex;justify-content:space-between;font-weight:600;margin-top:8px;}
 .check-group label,.color-group label{display:flex;align-items:center;gap:12px;margin-bottom:14px;font-size:18px;}
 input[type="checkbox"]{width:18px;height:18px;accent-color:#ff5b2e;}
 .color-group{margin-top:12px;}
@@ -107,17 +52,22 @@ input[type="checkbox"]{width:18px;height:18px;accent-color:#ff5b2e;}
 .color{width:24px;height:24px;border-radius:50%;border:2px solid rgba(0,0,0,0.08);transition:0.25s ease;opacity:0.9;}
 .color-option input:checked + .color{transform:scale(1.15);border:3px solid rgba(0,0,0,0.35);box-shadow:0 0 0 4px rgba(255,255,255,0.8),0 4px 10px rgba(0,0,0,0.12);opacity:1;}
 .color-option:hover .color{transform:scale(1.08);}
-
 footer{width:100%;background:#f5f5f5;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;font-size:18px;box-shadow:0 -3px 10px rgba(0,0,0,0.08);margin-top:auto;}
 footer div{flex:1;text-align:center;font-weight:500;}
 @media(max-width:1200px){.products{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:900px){.wrapper{flex-direction:column;}.sidebar{width:100%;position:relative;top:0;}.products{grid-template-columns:1fr;}.hero{height:520px;}.hero-left{width:100%;padding:40px;}.hero h2{font-size:54px;}.hero p{font-size:24px;}footer{flex-direction:column;gap:16px;}nav{display:none;}}
+/* Модальное окно выбора размера */
+#sizeModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);justify-content:center;align-items:center;z-index:1000;}
+#sizeModalContent{background:#fff;padding:30px;border-radius:24px;min-width:300px;text-align:center;}
+.size-btn{padding:10px 16px;border:none;border-radius:12px;background:#2b2b2b;color:white;cursor:pointer;font-weight:600;transition:0.2s;}
+.size-btn:hover{background:#ff5b2e;}
+#sizeCancel{margin-top:20px;padding:8px 16px;border:none;border-radius:12px;background:#ccc;cursor:pointer;}
 </style>
 </head>
 <body>
 <header>
 <div class="logo-wrapper"><div class="logo-circle"><img src="logo.png" alt="logo"></div><h1>НА ПОДЪЕМЕ</h1></div>
-<nav><a href="index.html">Главная</a><a href="katalog.html">Каталог</a><a href="onas.html">О нас</a><a href="kab.html">Личный кабинет</a></nav>
+<nav><a href="index.html">Главная</a><a href="katalog.html">Каталог</a><a href="onas.html">О нас</a><a href="kab.html">Личный кабинет</a> <a href = "korzina.html">Корзина</a></nav>
 </header>
 
 <div class="wrapper">
@@ -146,11 +96,11 @@ footer div{flex:1;text-align:center;font-weight:500;}
 <div class="filter-title">Бренд</div>
 <select><option>Nike</option><option>Adidas</option><option>Puma</option></select>
 <div class="filter-title">Цена</div>
-<input type="range" class="range" min="0" max="60000" value="30000" id="priceRange" oninput="priceValue.innerText=this.value+' ₽'">
-<div class="price-row"><span>от 0 ₽</span><span>до <span id="priceValue">30000 ₽</span></span></div>
+<input type="range" class="range" min="0" max="60000" value="60000" id="priceRange" oninput="priceValue.innerText=this.value+' ₽'">
+<div class="price-row"><span>от 0 ₽</span><span>до <span id="priceValue">60000 ₽</span></span></div>
 <div class="filter-title">Размер</div>
 <div class="check-group">
-<label><input type="checkbox" checked>38</label>
+<label><input type="checkbox" >38</label>
 <label><input type="checkbox">39</label>
 <label><input type="checkbox">40</label>
 <label><input type="checkbox">41</label>
@@ -174,39 +124,105 @@ footer div{flex:1;text-align:center;font-weight:500;}
 <div>Адрес: г. Угинск ул. Тамары 23</div>
 </footer>
 
+<!-- Модальное окно выбора размера -->
+<div id="sizeModal">
+  <div id="sizeModalContent">
+    <h3>Выберите размер</h3>
+    <div id="sizeOptions"></div>
+    <button id="sizeCancel">Отмена</button>
+  </div>
+</div>
+
+
 <script>
-const products = [
-{card: document.querySelectorAll('.card')[0], price: 33999, color: 'red', sizes: [38,39,40,41]},
-{card: document.querySelectorAll('.card')[1], price: 33999, color: 'black', sizes: [38,39,40,41]},
-{card: document.querySelectorAll('.card')[2], price: 33999, color: 'white', sizes: [38,39,41]},
-{card: document.querySelectorAll('.card')[3], price: 50999, color: 'green', sizes: [40,41,42]},
-{card: document.querySelectorAll('.card')[4], price: 33999, color: 'pink', sizes: [38,39,40]},
-{card: document.querySelectorAll('.card')[5], price: 20999, color: 'blue', sizes: [39,40,42]}
+const priceRange=document.getElementById('priceRange');
+const sizeCheckboxes=document.querySelectorAll('.check-group input');
+const colorCheckboxes=document.querySelectorAll('.color-group input');
+const priceValue=document.getElementById('priceValue');
+
+const productData=[
+{name:'Nike Air Mariah Red',color:'red',sizes:[38,39,40,41]},
+{name:'Nike Air Mariah Black',color:'black',sizes:[38,39,40,41]},
+{name:'Nike Air Mariah Pink-White',color:'white',sizes:[38,39,41]},
+{name:'Nike Air Mariah Green',color:'green',sizes:[40,41,42]},
+{name:'Nike Air Mariah Pink',color:'pink',sizes:[38,39,40]},
+{name:'Nike Air Mariah Blue-Orange',color:'blue',sizes:[39,40,42]}
 ];
 
-const priceRange = document.getElementById('priceRange');
-const sizeCheckboxes = document.querySelectorAll('.check-group input');
-const colorCheckboxes = document.querySelectorAll('.color-group input');
-const priceValue = document.getElementById('priceValue');
-
 function filterProducts(){
-const maxPrice = Number(priceRange.value);
-priceValue.innerText = maxPrice + ' ₽';
-const selectedSizes = [];
-sizeCheckboxes.forEach((checkbox)=>{if(checkbox.checked){selectedSizes.push(Number(checkbox.parentElement.textContent));}});
-const colors = ['black','white','gray','blue','red','green','pink','orange','brown'];
-const selectedColors = [];
-colorCheckboxes.forEach((checkbox,index)=>{if(checkbox.checked){selectedColors.push(colors[index]);}});
-products.forEach(product=>{
-const priceMatch = product.price <= maxPrice;
-const sizeMatch = selectedSizes.length === 0 || product.sizes.some(size => selectedSizes.includes(size));
-const colorMatch = selectedColors.length === 0 || selectedColors.includes(product.color);
-product.card.style.display = (priceMatch && sizeMatch && colorMatch) ? 'block' : 'none';
-});
+ const maxPrice=Number(priceRange.value);
+ priceValue.textContent=maxPrice+' ₽';
+
+ const selectedSizes=[...sizeCheckboxes].filter(x=>x.checked).map(x=>Number(x.parentElement.textContent.trim()));
+ const selectedColors=[];
+ const colors=['black','white','gray','blue','red','green'];
+ colorCheckboxes.forEach((c,i)=>{if(c.checked) selectedColors.push(colors[i]);});
+
+ document.querySelectorAll('.card').forEach((card,index)=>{
+   const price=parseInt(card.querySelector('.price').innerText.replace(/\D/g,''));
+   const p=productData[index];
+
+   const priceMatch=price<=maxPrice;
+   const sizeMatch=selectedSizes.length===0 || p.sizes.some(s=>selectedSizes.includes(s));
+   const colorMatch=selectedColors.length===0 || selectedColors.includes(p.color);
+
+   card.style.display=(priceMatch && sizeMatch && colorMatch)?'block':'none';
+ });
 }
+
 priceRange.addEventListener('input',filterProducts);
-sizeCheckboxes.forEach((checkbox)=>{checkbox.addEventListener('change',filterProducts);});
-colorCheckboxes.forEach((checkbox)=>{checkbox.addEventListener('change',filterProducts);});
+sizeCheckboxes.forEach(x=>x.addEventListener('change',filterProducts));
+colorCheckboxes.forEach(x=>x.addEventListener('change',filterProducts));
+
+if(!localStorage.getItem('cart')) localStorage.setItem('cart','[]');
+
+const modal=document.getElementById('sizeModal');
+const sizeOptions=document.getElementById('sizeOptions');
+document.getElementById('sizeCancel').onclick=()=>modal.style.display='none';
+
+document.querySelectorAll('.buy-btn').forEach((btn,index)=>{
+ btn.addEventListener('click',()=>{
+   const card=btn.closest('.card');
+   const product=productData[index];
+
+   sizeOptions.innerHTML='';
+
+   product.sizes.forEach(size=>{
+      const b=document.createElement('button');
+      b.className='size-btn';
+      b.textContent=size;
+
+      b.onclick=()=>{
+         let cart=JSON.parse(localStorage.getItem('cart'))||[];
+
+         const existing=cart.find(i=>i.name===product.name && i.size===size);
+
+         if(existing){
+            existing.quantity++;
+         }else{
+            cart.push({
+              name:product.name,
+              size:size,
+              quantity:1,
+              price:parseInt(card.querySelector('.price').innerText.replace(/\D/g,'')),
+              image:card.querySelector('img').getAttribute('src')
+            });
+         }
+
+         localStorage.setItem('cart',JSON.stringify(cart));
+         modal.style.display='none';
+         alert('Товар добавлен в корзину');
+      };
+
+      sizeOptions.appendChild(b);
+   });
+
+   modal.style.display='flex';
+ });
+});
+
+filterProducts();
 </script>
+
 </body>
 </html>
