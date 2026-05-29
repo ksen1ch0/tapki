@@ -385,6 +385,40 @@ flex:1;
 text-align:center;
 font-weight:500;
 }
+.size-btn{
+width:58px;
+height:44px;
+border:none;
+border-radius:16px;
+background:#222;
+color:white;
+font-weight:700;
+font-size:22px;
+cursor:pointer;
+transition:.2s;
+}
+
+.size-btn:hover{
+background:#ff5b2e;
+}
+
+#sizes{
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap;
+}
+
+#closeSize{
+margin-top:25px;
+width:130px;
+height:40px;
+border:none;
+border-radius:14px;
+background:#d6d6d6;
+font-size:18px;
+cursor:pointer;
+}
 
 /* MOBILE */
 
@@ -439,6 +473,32 @@ display:none;
 
 }
 
+
+html, body{
+  min-height:100vh;
+  margin:0;
+  padding:0;
+}
+body{
+  display:flex;
+  flex-direction:column;
+}
+.wrapper{
+  flex:1 0 auto;
+}
+footer{
+  width:100%;
+  background:#f5f5f5;
+  padding:32px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:18px;
+  box-shadow:0 -3px 10px rgba(0,0,0,0.08);
+  flex-shrink:0;
+  margin-top:auto;
+}
+
 </style>
 </head>
 
@@ -476,10 +536,11 @@ display:none;
 
 <div class="filter-title">Бренд</div>
 
-<select>
-<option>Nike</option>
-<option>Adidas</option>
-<option>Puma</option>
+<select id="brandFilter">
+<option value="">Все бренды</option>
+<option value="Nike">Nike</option>
+<option value="Adidas">Adidas</option>
+<option value="Puma">Puma</option>
 </select>
 
 <div class="filter-title">Цена</div>
@@ -513,37 +574,37 @@ oninput="priceValue.innerText=this.value+' ₽'">
 <div class="color-group">
 
 <label class="color-option">
-<input type="checkbox">
+<input type="checkbox" value="black">
 <span class="color" style="background:black;"></span>
 чёрный
 </label>
 
 <label class="color-option">
-<input type="checkbox">
+<input type="checkbox" value="white">
 <span class="color" style="background:white;"></span>
 белый
 </label>
 
 <label class="color-option">
-<input type="checkbox">
+<input type="checkbox" value="gray">
 <span class="color" style="background:gray;"></span>
 серый
 </label>
 
 <label class="color-option">
-<input type="checkbox">
+<input type="checkbox" value="blue">
 <span class="color" style="background:#4da3ff;"></span>
 синий
 </label>
 
 <label class="color-option">
-<input type="checkbox">
+<input type="checkbox" value="red">
 <span class="color" style="background:#ff4a4a;"></span>
 красный
 </label>
 
 <label class="color-option">
-<input type="checkbox">
+<input type="checkbox" value="green">
 <span class="color" style="background:#29c24f;"></span>
 зелёный
 </label>
@@ -580,113 +641,113 @@ oninput="priceValue.innerText=this.value+' ₽'">
 
 <div class="products">
 
-<div class="card">
-<div class="sale">NEW</div>
-<div class="card-top">
-<img src="pink.png">
-<div>
-<h3>Nike Air Mariah Pink</h3>
-<div class="price">33 999 ₽</div>
-<button class="buy-btn">Купить</button>
+<div class="card" data-brand="Nike" data-color="pink" data-sizes="38,39,40">
+  <div class="sale">NEW</div>
+  <div class="card-top">
+    <img src="pink.png">
+    <div>
+      <h3>Nike Air Mariah Pink</h3>
+      <div class="price">33 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="Nike" data-color="green" data-sizes="40,41,42">
+  <div class="card-top">
+    <img src="green.png">
+    <div>
+      <h3>Nike Air Mariah Green</h3>
+      <div class="price">50 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="Nike" data-color="pink,white" data-sizes="38,39,41">
+  <div class="sale">SALE</div>
+  <div class="card-top">
+    <img src="pinkwhite.png">
+    <div>
+      <h3>Nike Air Mariah Pink-White</h3>
+      <div class="price">33 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="Nike" data-color="blue,orange" data-sizes="39,40,42">
+  <div class="card-top">
+    <img src="blueorange.png">
+    <div>
+      <h3>Nike Air Mariah Blue-Orange</h3>
+      <div class="price">20 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="Nike" data-color="red" data-sizes="38,39,40,41">
+  <div class="sale">HOT</div>
+  <div class="card-top">
+    <img src="red.png">
+    <div>
+      <h3>Nike Air Mariah Red</h3>
+      <div class="price">33 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="Nike" data-color="blue, white" data-sizes="38,40,42">
+  <div class="card-top">
+    <img src="bluewhite.png">
+    <div>
+      <h3>Nike Air Mariah Blue-White</h3>
+      <div class="price">13 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="Nike" data-color="brown" data-sizes="41,42">
+  <div class="card-top">
+    <img src="brown.png">
+    <div>
+      <h3>Nike Air Mariah Brown</h3>
+      <div class="price">64 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="Nike" data-color="orange" data-sizes="39,40">
+  <div class="card-top">
+    <img src="orange.png">
+    <div>
+      <h3>Nike Air Mariah Orange</h3>
+      <div class="price">22 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+<div class="card" data-brand="Nike" data-color="gray" data-sizes="38,39">
+  <div class="card-top">
+    <img src="gray.png">
+    <div>
+      <h3>Nike Air Mariah Gray</h3>
+      <div class="price">12 999 ₽</div>
+      <button class="buy-btn">Купить</button>
+    </div>
+  </div>
+</div>
+
+
 </div>
 </div>
 </div>
 
-<div class="card">
-<div class="card-top">
-<img src="green.png">
-<div>
-<h3>Nike Air Mariah Green</h3>
-<div class="price">50 999 ₽</div>
-<button class="buy-btn">Купить</button>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="sale">SALE</div>
-<div class="card-top">
-<img src="pinkwhite.png">
-<div>
-<h3>Nike Air Mariah Pink-White</h3>
-<div class="price">33 999 ₽</div>
-<button class="buy-btn">Купить</button>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-top">
-<img src="blueorange.png">
-<div>
-<h3>Nike Air Mariah Blue-Orange</h3>
-<div class="price">20 999 ₽</div>
-<button class="buy-btn">Купить</button>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="sale">HOT</div>
-<div class="card-top">
-<img src="red.png">
-<div>
-<h3>Nike Air Mariah Red</h3>
-<div class="price">33 999 ₽</div>
-<button class="buy-btn">Купить</button>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-top">
-<img src="bluewhite.png">
-<div>
-<h3>Nike Air Mariah Blue-White</h3>
-<div class="price">13 999 ₽</div>
-<button class="buy-btn">Купить</button>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-top">
-<img src="brown.png">
-<div>
-<h3>Nike Air Mariah Brown</h3>
-<div class="price">64 999 ₽</div>
-<button class="buy-btn">Купить</button>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-top">
-<img src="orange.png">
-<div>
-<h3>Nike Air Mariah Orange</h3>
-<div class="price">22 999 ₽</div>
-<button class="buy-btn">Купить</button>
-</div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-top">
-<img src="gray.png">
-<div>
-<h3>Nike Air Mariah Gray</h3>
-<div class="price">12 999 ₽</div>
-<button class="buy-btn">Купить</button>
-</div>
-</div>
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 <footer>
 
@@ -704,51 +765,96 @@ oninput="priceValue.innerText=this.value+' ₽'">
 
 </footer>
 
-
 <script>
 const cards=document.querySelectorAll('.card');
 const priceRange=document.getElementById('priceRange');
 const priceValue=document.getElementById('priceValue');
 const sizeChecks=document.querySelectorAll('.check-group input');
+const brandFilter=document.getElementById('brandFilter');
+const colorChecks=document.querySelectorAll('.color-group input');
 
 priceRange.value=60000;
 
 function filterProducts(){
+
  const maxPrice=Number(priceRange.value);
+
  priceValue.innerText='до '+maxPrice+' ₽';
 
  const selectedSizes=[...sizeChecks]
  .filter(x=>x.checked)
  .map(x=>Number(x.parentElement.textContent.trim()));
 
- cards.forEach(card=>{
-   const price=parseInt(card.querySelector('.price').innerText.replace(/\D/g,''));
-   let show=price<=maxPrice;
+ const selectedColors=[...colorChecks]
+ .filter(x=>x.checked)
+ .map(x=>x.value);
 
-   if(selectedSizes.length){
-      const title=card.querySelector('h3').innerText;
-      const sizesMap={
-       'Nike Air Mariah Pink':[38,39,40],
-       'Nike Air Mariah Green':[40,41,42],
-       'Nike Air Mariah Pink-White':[38,39,41],
-       'Nike Air Mariah Blue-Orange':[39,40,42],
-       'Nike Air Mariah Red':[38,39,40,41],
-       'Nike Air Mariah Blue-White':[38,40,42],
-       'Nike Air Mariah Brown':[41,42],
-       'Nike Air Mariah Orange':[39,40],
-       'Nike Air Mariah Gray':[38,39]
-      };
-      const sizes=sizesMap[title]||[];
-      show = show && sizes.some(s=>selectedSizes.includes(s));
+ const selectedBrand=brandFilter.value;
+
+ cards.forEach(card=>{
+
+   const price=parseInt(
+      card.querySelector('.price').innerText.replace(/\D/g,'')
+   );
+
+   const cardBrand=card.dataset.brand;
+   const cardColor=card.dataset.color;
+
+   const cardSizes=card.dataset.sizes
+      .split(',')
+      .map(Number);
+
+   let show=true;
+
+   if(price>maxPrice) show=false;
+
+   if(selectedBrand){
+      show=show && cardBrand===selectedBrand;
    }
 
-   card.style.display=show?'block':'none';
- });
+ if(selectedColors.length){
+
+   const colors=cardColor
+      .split(',')
+      .map(c=>c.trim());
+
+   show=
+   show &&
+   selectedColors.some(color =>
+      colors.includes(color)
+   );
 }
 
-priceRange.addEventListener('input',filterProducts);
-sizeChecks.forEach(x=>x.addEventListener('change',filterProducts));
+   if(selectedSizes.length){
+      show=
+      show &&
+      cardSizes.some(size =>
+         selectedSizes.includes(size)
+      );
+   }
 
+   card.style.display=show ? 'block' : 'none';
+
+ });
+
+}
+
+ 
+
+priceRange.addEventListener('input',filterProducts);
+
+sizeChecks.forEach(x=>
+x.addEventListener('change',filterProducts)
+);
+
+colorChecks.forEach(x=>
+x.addEventListener('change',filterProducts)
+);
+
+brandFilter.addEventListener(
+'change',
+filterProducts
+);
 if(!localStorage.getItem('cart')){
  localStorage.setItem('cart','[]');
 }
@@ -785,6 +891,7 @@ document.querySelectorAll('.buy-btn').forEach(btn=>{
    wrap.innerHTML='';
    sizesMap[name].forEach(size=>{
       const b=document.createElement('button');
+      b.classList.add('size-btn');
       b.textContent=size;
       b.style.margin='5px';
       b.onclick=()=>{
