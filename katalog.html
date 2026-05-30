@@ -324,6 +324,20 @@ display:flex;
 align-items:center;
 gap:18px;
 }
+.fav-heart {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  font-size: 24px;
+  color: gray;
+  cursor: pointer;
+  transition: color 0.3s;
+  user-select: none;
+}
+
+.fav-heart.active {
+  color: red;
+}
 
 .card img{
 width:220px;
@@ -920,6 +934,42 @@ document.addEventListener('click',e=>{
 });
 
 filterProducts();
+document.querySelectorAll('.card').forEach(card => {
+    // Создаем и добавляем серое сердечко
+    const heart = document.createElement('div');
+    heart.classList.add('fav-heart');
+    heart.innerHTML = '❤';
+    card.appendChild(heart);
+
+    // Проверяем, есть ли товар в избранном
+    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const name = card.querySelector('h3').innerText;
+    if(favorites.some(f => f.name === name)) {
+        heart.classList.add('active');
+    }
+
+    // Обработчик клика
+    heart.addEventListener('click', () => {
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        const itemIndex = favorites.findIndex(f => f.name === name);
+
+        if(itemIndex === -1) {
+            // Добавляем товар в избранное
+            favorites.push({
+                name: name,
+                price: parseInt(card.querySelector('.price').innerText.replace(/\D/g,'')),
+                image: card.querySelector('img').getAttribute('src')
+            });
+            heart.classList.add('active');
+        } else {
+            // Убираем товар из избранного
+            favorites.splice(itemIndex, 1);
+            heart.classList.remove('active');
+        }
+
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    });
+});
 </script>
 
 </body>

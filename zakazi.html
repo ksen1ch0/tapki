@@ -1,24 +1,84 @@
-<!-- МОИ ЗАКАЗЫ -->
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Мои заказы</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,body{
+min-height:100vh;
+display:flex;
+flex-direction:column;
 font-family:'Montserrat',sans-serif;
 background:#9d9d9d;
 color:#111;
 }
 
+/* HEADER */
+
+header{
+width:100%;
+height:82px;
+background:#f8f8f8;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 35px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.logo-wrapper{
+display:flex;
+align-items:center;
+gap:16px;
+}
+
+.logo-circle{
+width:58px;
+height:58px;
+border-radius:50%;
+overflow:hidden;
+background:white;
+}
+
+.logo-circle img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.logo-wrapper h1{
+font-size:22px;
+font-weight:800;
+}
+
+nav{
+display:flex;
+gap:36px;
+}
+
+nav a{
+text-decoration:none;
+color:#111;
+font-weight:500;
+}
+
+/* CONTENT */
+
 .container{
 width:93%;
 margin:40px auto;
+flex:1;
 }
 
 .title{
@@ -70,74 +130,233 @@ padding:14px 22px;
 border-radius:14px;
 font-weight:700;
 color:white;
+background:#2dbb55;
+}
+.status.oformlen{
+background:#8d8d8d;
 }
 
-.green{background:#2dbb55;}
-.orange{background:#ff962f;}
-.red{background:#ff4c4c;}
+.status.vputi{
+background:#ff962f;
+}
+
+.status.dostavlen{
+background:#2dbb55;
+}
+
+.status.otmenen{
+background:#ff4c4c;
+}
+
+.cancel-btn{
+margin-top:12px;
+padding:10px 16px;
+border:none;
+border-radius:12px;
+background:#ff4c4c;
+color:white;
+font-weight:700;
+cursor:pointer;
+transition:.3s;
+}
+
+.cancel-btn:hover{
+background:#e53838;
+}
+
+/* FOOTER */
+
+footer{
+width:100%;
+background:#f5f5f5;
+padding:32px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:18px;
+box-shadow:0 -3px 10px rgba(0,0,0,.08);
+margin-top:auto;
+}
+
+footer div{
+flex:1;
+text-align:center;
+font-weight:500;
+}
+
+@media(max-width:850px){
+
+nav{
+display:none;
+}
+
+.order{
+flex-direction:column;
+gap:20px;
+}
+
+footer{
+flex-direction:column;
+gap:15px;
+}
+
+}
 
 </style>
 </head>
 
 <body>
 
+<header>
+
+<div class="logo-wrapper">
+
+<div class="logo-circle">
+<img src="logo.png">
+</div>
+
+<h1>НА ПОДЪЕМЕ</h1>
+
+</div>
+
+<nav>
+<a href="index.html">Главная</a>
+<a href="katalog.html">Каталог</a>
+<a href="onas.html">О нас</a>
+<a href="kab.html">Личный кабинет</a>
+<a href="korzina.html">Корзина</a>
+<a href="izbr.html">Избранное</a>
+</nav>
+
+</header>
+
 <div class="container">
 
 <h1 class="title">Мои заказы</h1>
 
-<div class="orders">
+<div class="orders" id="ordersContainer"></div>
+
+</div>
+
+<footer>
+
+<div>Телефон: +7-900-015-15-15</div>
+
+<div>Почта: krasovka@gmail.com</div>
+
+<div>Адрес: г. Угинск ул. Тамары 23</div>
+
+</footer>
+
+<script>
+
+let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+
+const container = document.getElementById('ordersContainer');
+
+function renderOrders(){
+
+container.innerHTML = '';
+
+if(orders.length === 0){
+
+container.innerHTML = `
+<h2 style="text-align:center;font-size:34px;">
+У вас пока нет заказов
+</h2>
+`;
+
+return;
+}
+
+orders.forEach((order,index)=>{
+
+let statusClass = '';
+
+switch(order.status){
+
+case 'Оформлен':
+statusClass = 'oformlen';
+break;
+
+case 'В пути':
+statusClass = 'vputi';
+break;
+
+case 'Доставлен':
+statusClass = 'dostavlen';
+break;
+
+case 'Отменён':
+statusClass = 'otmenen';
+break;
+
+default:
+statusClass = 'oformlen';
+
+}
+
+const cancelButton =
+order.status === 'Оформлен'
+?
+`<button class="cancel-btn" onclick="cancelOrder(${index})">
+Отменить заказ
+</button>`
+:
+'';
+
+container.innerHTML += `
 
 <div class="order">
 
 <div class="order-left">
-<img src="red.png">
+
+<img src="${order.image}">
 
 <div class="order-info">
-<h2>Nike Air Mariah</h2>
-<p>Заказ #3000</p>
-</div>
 
-</div>
+<h2>${order.name}</h2>
 
-<div class="status green">Получен</div>
+<p>Заказ #${1000 + index}</p>
 
-</div>
+<p>Размер: ${order.size}</p>
 
-<div class="order">
+<p>Количество: ${order.quantity}</p>
 
-<div class="order-left">
-<img src="black.png">
-
-<div class="order-info">
-<h2>Nike Air Mariah</h2>
-<p>Заказ #3001</p>
-</div>
-
-</div>
-
-<div class="status orange">В пути</div>
-
-</div>
-
-<div class="order">
-
-<div class="order-left">
-<img src="blueorange.png">
-
-<div class="order-info">
-<h2>Nike Air Mariah</h2>
-<p>Заказ #3002</p>
-</div>
-
-</div>
-
-<div class="status red">Отменён</div>
+${cancelButton}
 
 </div>
 
 </div>
 
+<div class="status ${statusClass}">
+${order.status}
 </div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function cancelOrder(index){
+
+orders[index].status = 'Отменён';
+
+localStorage.setItem(
+'orders',
+JSON.stringify(orders)
+);
+
+renderOrders();
+
+}
+
+renderOrders();
+
+</script>
 
 </body>
 </html>
