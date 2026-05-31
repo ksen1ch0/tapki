@@ -74,7 +74,7 @@ footer div{flex:1;text-align:center;font-weight:500;}
 <a href="index.html">Главная</a>
 <a href="katalog.html">Каталог</a>
 <a href="onas.html">О нас</a>
-<a href="kabinet.html">Личный кабинет</a>
+<a href="kab.html">Личный кабинет</a>
 <a href="korzina.html">Корзина</a>
 </nav>
 </header>
@@ -94,9 +94,19 @@ footer div{flex:1;text-align:center;font-weight:500;}
 </div>
 
 <div class="profile-info">
-<h2>Артем Привет</h2>
-<p>artem@gmail.com</p>
-<p>Участник программы бонусов</p>
+
+<h2 id="userFullName">
+Пользователь
+</h2>
+
+<p id="userEmail">
+email@example.com
+</p>
+
+<p>
+Участник программы бонусов
+</p>
+
 </div>
 
 </div>
@@ -120,7 +130,7 @@ footer div{flex:1;text-align:center;font-weight:500;}
 <div class="stat-card">
 <a href="bonusy.html">
 <h3>Бонусы</h3>
-<span>2450</span>
+<span id="bonusCount">0</span>
 </a>
 </div>
 
@@ -193,6 +203,23 @@ footer div{flex:1;text-align:center;font-weight:500;}
 </footer>
 
 <script>
+    function updateBonuses(){
+
+    const bonuses = Number(
+        localStorage.getItem('bonuses') || 0
+    );
+
+    document.getElementById(
+        'bonusCount'
+    ).textContent = bonuses;
+}
+
+updateBonuses();
+
+window.addEventListener(
+    'storage',
+    updateBonuses
+);
 // Обновление количества избранного
 function renderOrders() {
 
@@ -260,6 +287,62 @@ function renderOrders() {
 }
 
 renderOrders();
+
+// Счётчик избранного
+function updateFavoritesCount(){
+
+    const favorites = JSON.parse(
+        localStorage.getItem('favorites') || '[]'
+    );
+
+    document.getElementById('favoritesCount').textContent =
+        favorites.length;
+}
+// Загрузка данных пользователя
+function loadUser(){
+
+    const user = JSON.parse(
+        localStorage.getItem('user') || '{}'
+    );
+
+    const fullName =
+    `${user.firstName || ''} ${user.lastName || ''}`
+    .trim();
+
+    document.getElementById(
+        'userFullName'
+    ).textContent =
+    fullName || 'Пользователь';
+
+    document.getElementById(
+        'userEmail'
+    ).textContent =
+    user.email || 'Email не указан';
+
+    // Буква в аватаре
+    const avatar =
+    document.querySelector('.avatar');
+
+    avatar.textContent =
+    user.firstName
+    ? user.firstName[0].toUpperCase()
+    : 'П';
+
+}
+
+loadUser();
+
+window.addEventListener(
+    'storage',
+    loadUser
+);
+
+updateFavoritesCount();
+
+window.addEventListener(
+    'storage',
+    updateFavoritesCount
+);
 window.addEventListener('storage', renderOrders);
 </script>
 </body>

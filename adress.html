@@ -1,84 +1,153 @@
-<!-- АДРЕСА -->
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Адреса</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Адреса доставки</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
-
-body{
-margin:0;
-font-family:'Montserrat',sans-serif;
-background:#9d9d9d;
-}
-
-.container{
-width:93%;
-margin:40px auto;
-}
-
-.title{
-font-size:58px;
-font-weight:800;
-margin-bottom:30px;
-}
-
-.address{
-background:#f5f5f5;
-padding:34px;
-border-radius:28px;
-margin-bottom:24px;
-box-shadow:0 10px 24px rgba(0,0,0,0.12);
-}
-
-.address h2{
-font-size:30px;
-margin-bottom:12px;
-}
-
-.address p{
-font-size:20px;
-color:#555;
-line-height:1.6;
-}
-
-button{
-margin-top:18px;
-width:220px;
-height:54px;
-border:none;
-border-radius:16px;
-background:#111;
-color:white;
-font-size:16px;
-font-weight:700;
-cursor:pointer;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Montserrat',sans-serif;background:#9d9d9d;min-height:100vh;display:flex;flex-direction:column;}
+header{width:100%;height:82px;background:#f8f8f8;display:flex;align-items:center;justify-content:space-between;padding:0 35px;box-shadow:0 2px 10px rgba(0,0,0,.08);}
+.logo-wrapper{display:flex;align-items:center;gap:16px;}
+.logo-circle{width:58px;height:58px;border-radius:50%;overflow:hidden;background:white;}
+.logo-circle img{width:100%;height:100%;object-fit:cover;}
+.logo-wrapper h1{font-size:22px;font-weight:800;}
+nav{display:flex;gap:36px;}
+nav a{text-decoration:none;color:#111;font-weight:500;}
+.container{width:93%;margin:40px auto;flex:1;}
+.title{font-size:58px;font-weight:800;margin-bottom:30px;}
+.add-address{background:#f5f5f5;padding:30px;border-radius:28px;margin-bottom:30px;box-shadow:0 10px 24px rgba(0,0,0,.12);}
+.add-address input{width:100%;height:50px;padding:0 15px;border:none;border-radius:16px;font-size:16px;margin-bottom:16px;}
+.btn{width:220px;height:54px;border:none;border-radius:16px;background:#111;color:white;font-size:16px;font-weight:700;cursor:pointer;transition:.3s;}
+.btn:hover{background:#ff5b2e;}
+.address{background:#f5f5f5;padding:24px;border-radius:28px;margin-bottom:24px;box-shadow:0 10px 24px rgba(0,0,0,.12);}
+.address p{font-size:20px;color:#555;line-height:1.6;margin-bottom:15px;}
+.delete-btn{background:#ff4c4c;}
+.delete-btn:hover{background:#e53c3c;}
+.suggestions{background:white;border-radius:12px;overflow:hidden;margin-bottom:16px;box-shadow:0 5px 15px rgba(0,0,0,.1);}
+.suggestion{padding:12px 15px;cursor:pointer;border-bottom:1px solid #eee;}
+.suggestion:hover{background:#f0f0f0;}
+footer{width:100%;background:#f5f5f5;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;font-size:18px;box-shadow:0 -3px 10px rgba(0,0,0,.08);margin-top:auto;}
+footer div{flex:1;text-align:center;font-weight:500;}
+@media(max-width:850px){nav{display:none;}footer{flex-direction:column;gap:15px;}.title{font-size:42px;}}
 </style>
 </head>
-
 <body>
+
+<header>
+<div class="logo-wrapper">
+<div class="logo-circle"><img src="logo.png"></div>
+<h1>НА ПОДЪЕМЕ</h1>
+</div>
+<nav>
+<a href="index.html">Главная</a>
+<a href="katalog.html">Каталог</a>
+<a href="onas.html">О нас</a>
+<a href="kab.html">Личный кабинет</a>
+<a href="korzina.html">Корзина</a>
+</nav>
+</header>
 
 <div class="container">
 
 <h1 class="title">Адреса доставки</h1>
 
-<div class="address">
-<p>г. Москва, ул. Комсомольская 5</p>
-<button>Редактировать</button>
+<div class="add-address">
+<label>Город</label>
+<input type="text" id="cityInput" placeholder="Введите город">
+<div id="citySuggestions" class="suggestions"></div>
+
+<label>Улица и дом</label>
+<input type="text" id="streetInput" placeholder="Введите улицу и дом ">
+<div id="streetSuggestions" class="suggestions"></div>
+
+<button class="btn" onclick="addAddress()">Добавить адрес</button>
 </div>
 
-<div class="address">
-<p>г. Москва, ул. Ленина 15</p>
-<button>Редактировать</button>
+<div id="addressesContainer"></div>
 </div>
 
-</div>
+<footer>
+<div>Телефон: +7-900-015-15-15</div>
+<div>Почта: krasovka@gmail.com</div>
+<div>Адрес: г. Угинск ул. Тамары 23</div>
+</footer>
+
+<script>
+const cities = ['Москва','Мурманск','Магадан','Майкоп','Махачкала','Санкт-Петербург','Самара','Саратов','Сочи','Сургут','Севастополь','Краснодар','Красноярск','Казань','Новосибирск','Омск','Уфа'];
+const streets = ['Ленина, ','Ленина, ','Лесная, ','Луговая, ','Мира, ','Мира, ','Пушкина, ','Гагарина,','Советская, ','Комсомольская, ','Центральная, '];
+
+let addresses = JSON.parse(localStorage.getItem('addresses') || '[]');
+
+function renderAddresses(){
+    const container = document.getElementById('addressesContainer');
+    container.innerHTML = '';
+    if(addresses.length === 0){
+        container.innerHTML = '<div class="address"><p>У вас пока нет сохранённых адресов</p></div>';
+        return;
+    }
+    addresses.forEach((address,index)=>{
+        container.innerHTML += `<div class="address"><p>${address.city}, ул. ${address.street.split(',')[0]}, д. ${address.street.split(',')[1]?.trim() || ''}</p><button class="btn delete-btn" onclick="deleteAddress(${index})">Удалить адрес</button></div>`;
+    });
+}
+
+function addAddress(){
+    const city = document.getElementById('cityInput').value.trim();
+    const street = document.getElementById('streetInput').value.trim();
+    if(city === '' || street === ''){
+        alert('Заполните все поля');
+        return;
+    }
+    addresses.push({city, street});
+    localStorage.setItem('addresses', JSON.stringify(addresses));
+    document.getElementById('cityInput').value = '';
+    document.getElementById('streetInput').value = '';
+    renderAddresses();
+}
+
+function deleteAddress(index){
+    addresses.splice(index,1);
+    localStorage.setItem('addresses', JSON.stringify(addresses));
+    renderAddresses();
+}
+
+// Подсказки для города
+const cityInput = document.getElementById('cityInput');
+const citySuggestions = document.getElementById('citySuggestions');
+cityInput.addEventListener('input', ()=>{
+    const value = cityInput.value.toLowerCase();
+    citySuggestions.innerHTML = '';
+    if(!value) return;
+    cities.filter(c => c.toLowerCase().startsWith(value)).forEach(c => {
+        const div = document.createElement('div');
+        div.className='suggestion';
+        div.textContent=c;
+        div.onclick=()=>{cityInput.value=c; citySuggestions.innerHTML='';};
+        citySuggestions.appendChild(div);
+    });
+});
+
+// Подсказки для улицы
+const streetInput = document.getElementById('streetInput');
+const streetSuggestions = document.getElementById('streetSuggestions');
+streetInput.addEventListener('input', ()=>{
+    const value = streetInput.value.toLowerCase();
+    streetSuggestions.innerHTML = '';
+    if(!value) return;
+    streets.filter(s => s.toLowerCase().startsWith(value)).forEach(s => {
+        const div = document.createElement('div');
+        div.className='suggestion';
+        div.textContent=s;
+        div.onclick=()=>{streetInput.value=s; streetSuggestions.innerHTML='';};
+        streetSuggestions.appendChild(div);
+    });
+});
+
+renderAddresses();
+</script>
 
 </body>
 </html>

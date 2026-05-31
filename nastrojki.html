@@ -1,104 +1,272 @@
-<!-- НАСТРОЙКИ -->
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Настройки</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
 body{
-margin:0;
 font-family:'Montserrat',sans-serif;
 background:#9d9d9d;
+overflow-x:hidden;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+}
+
+header{
+width:100%;
+height:82px;
+background:#f8f8f8;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 35px;
+box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.logo-wrapper{
+display:flex;
+align-items:center;
+gap:16px;
+}
+
+.logo-circle{
+width:58px;
+height:58px;
+border-radius:50%;
+overflow:hidden;
+background:white;
+}
+
+.logo-circle img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.logo-wrapper h1{
+font-size:22px;
+font-weight:800;
+}
+
+nav{
+display:flex;
+gap:36px;
+}
+
+nav a{
+text-decoration:none;
+color:#111;
+font-weight:500;
 }
 
 .container{
 width:93%;
 margin:40px auto;
+flex:1;
 }
 
 .title{
-font-size:58px;
+font-size:72px;
 font-weight:800;
-margin-bottom:30px;
+margin-bottom:35px;
 }
 
 .settings{
+width:100%;
 background:#f5f5f5;
-padding:40px;
+padding:50px;
 border-radius:30px;
-box-shadow:0 10px 24px rgba(0,0,0,0.12);
+box-shadow:0 10px 24px rgba(0,0,0,.12);
 }
 
 .input-group{
-margin-bottom:28px;
+margin-bottom:35px;
 }
 
 label{
 display:block;
-font-size:20px;
-margin-bottom:12px;
-font-weight:600;
+font-size:24px;
+margin-bottom:14px;
+font-weight:700;
+}
+
+.name-row{
+display:flex;
+gap:25px;
+}
+
+.name-row input{
+flex:1;
 }
 
 input{
 width:100%;
-height:58px;
-border:none;
-border-radius:16px;
-padding:0 20px;
-font-size:18px;
-background:#e7e7e7;
+height:68px;
+border:2px solid transparent;
+border-radius:18px;
+padding:0 25px;
+font-size:20px;
+background:#ececec;
+transition:.3s;
+outline:none;
+}
+
+input:focus{
+border:2px solid #ff5b2e;
+background:white;
+box-shadow:0 0 12px rgba(255,91,46,.2);
 }
 
 button{
-margin-top:20px;
-width:240px;
-height:58px;
+margin-top:25px;
+width:280px;
+height:64px;
 border:none;
 border-radius:18px;
 background:linear-gradient(135deg,#111,#2c2c2c);
 color:white;
-font-size:17px;
+font-size:18px;
 font-weight:700;
 cursor:pointer;
+transition:.3s;
 }
 
+button:hover{
+background:linear-gradient(135deg,#ff5b2e,#ff7b57);
+}
+
+footer{
+width:100%;
+background:#f5f5f5;
+padding:32px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:18px;
+box-shadow:0 -3px 10px rgba(0,0,0,.08);
+margin-top:auto;
+}
+
+footer div{
+flex:1;
+text-align:center;
+font-weight:500;
+}
+
+@media(max-width:850px){
+
+nav{
+display:none;
+}
+
+.name-row{
+flex-direction:column;
+}
+
+.title{
+font-size:48px;
+}
+
+footer{
+flex-direction:column;
+gap:15px;
+}
+
+}
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<header>
+<div class="logo-wrapper">
+<div class="logo-circle"><img src="logo.png"></div>
+<h1>НА ПОДЪЕМЕ</h1>
+</div>
+<nav>
+<a href="index.html">Главная</a>
+<a href="katalog.html">Каталог</a>
+<a href="onas.html">О нас</a>
+<a href="kab.html">Личный кабинет</a>
+<a href="korzina.html">Корзина</a>
+</nav>
+</header>
 
+<div class="container">
 <h1 class="title">Настройки</h1>
 
 <div class="settings">
+<div class="input-group">
+<label>Имя и фамилия</label>
+<div class="name-row">
+<input type="text" id="firstName" placeholder="Имя">
+<input type="text" id="lastName" placeholder="Фамилия">
+</div>
+</div>
 
 <div class="input-group">
-<label>Имя</label>
-<input type="text" value="Артем">
+<label>День рождения</label>
+<input type="date" id="birthday">
 </div>
 
 <div class="input-group">
 <label>Email</label>
-<input type="email" value="artem@gmail.com">
+<input type="email" id="email" placeholder="Введите Email">
 </div>
 
 <div class="input-group">
 <label>Пароль</label>
-<input type="password" value="123456">
+<input type="password" id="password" placeholder="Введите пароль">
 </div>
 
-<button>Сохранить изменения</button>
-
+<button onclick="saveSettings()">Сохранить изменения</button>
 </div>
 
 </div>
+
+<footer>
+<div>Телефон: +7-900-015-15-15</div>
+<div>Почта: krasovka@gmail.com</div>
+<div>Адрес: г. Угинск ул. Тамары 23</div>
+</footer>
+
+<script>
+// Загрузка данных при открытии
+window.addEventListener('load', ()=>{
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  document.getElementById('firstName').value = user.firstName || '';
+  document.getElementById('lastName').value = user.lastName || '';
+  document.getElementById('birthday').value = user.birthday || '';
+  document.getElementById('email').value = user.email || '';
+  document.getElementById('password').value = user.password || '';
+});
+
+// Сохранение изменений
+function saveSettings(){
+  const user = {
+    firstName: document.getElementById('firstName').value.trim(),
+    lastName: document.getElementById('lastName').value.trim(),
+    birthday: document.getElementById('birthday').value,
+    email: document.getElementById('email').value.trim(),
+    password: document.getElementById('password').value
+  };
+  localStorage.setItem('user', JSON.stringify(user));
+  alert('Настройки сохранены!');
+  // Обновление имени и фамилии в личном кабинете
+  if(window.opener){
+    window.opener.updateUserName(user.firstName, user.lastName);
+  }
+}
+</script>
 
 </body>
 </html>

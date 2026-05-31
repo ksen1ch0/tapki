@@ -33,9 +33,9 @@ nav a:hover::after{width:100%;}
 .remove-btn{padding:6px 12px;background:#111;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:0.25s;}
 .remove-btn:hover{background:#333;}
 .total-row{margin-top:24px;text-align:right;font-size:24px;font-weight:700;}
-.checkout-btn{margin-top:16px;padding:14px 28px;background:linear-gradient(135deg,#111,#2b2b2b);color:white;border:none;border-radius:18px;font-size:18px;font-weight:700;cursor:pointer;transition:0.35s;display:block;margin-left:auto;}
+.checkout-btn{margin-top:16px;padding:14px 28px;background:linear-gradient(135deg,#111,#2b2c2c);color:white;border:none;border-radius:18px;font-size:18px;font-weight:700;cursor:pointer;transition:0.35s;display:block;margin-left:auto;}
 .checkout-btn:hover{background:linear-gradient(135deg,#ff5b2e,#ff7b57);}
-footer{width:100%;background:#f5f5f5;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;font-size:18px;box-shadow:0 -3px 10px rgba(0,0,0,0.08);margin-top:auto;}
+footer{width:100%;background:#f5f5f5;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;font-size:18px;box-shadow:0 -3px 10px rgba(0,0,0,.08);margin-top:auto;}
 footer div{flex:1;text-align:center;font-weight:500;}
 @media(max-width:900px){.cart-item{flex-direction:column;align-items:flex-start;}.cart-item img{width:100%;height:auto;}}
 </style>
@@ -61,7 +61,8 @@ footer div{flex:1;text-align:center;font-weight:500;}
 </footer>
 
 <script>
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
 const cartContainer = document.getElementById('cartItems');
 const totalPriceEl = document.getElementById('totalPrice');
 const checkoutBtn = document.querySelector('.checkout-btn');
@@ -78,7 +79,6 @@ function renderCart(){
 
     cart.forEach((item,index)=>{
         total += item.price * item.quantity;
-
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('cart-item');
 
@@ -127,20 +127,18 @@ function renderCart(){
     totalPriceEl.innerText = 'Итого: ' + total.toLocaleString() + ' ₽';
 }
 
-// Оформление заказа и добавление в список заказов
+// Оформление заказа с удалением из избранного
 checkoutBtn.addEventListener('click', () => {
     if(cart.length === 0){
         alert('Корзина пуста!');
         return;
     }
 
-    // Получаем старые заказы
     let orders = JSON.parse(localStorage.getItem('orders') || '[]');
 
-    // Добавляем товары из корзины в заказы
-    cart.forEach(item => {
+    cart.forEach((item,index)=>{
         orders.push({
-            id: Date.now() + Math.floor(Math.random() * 1000),
+            id: orders.length,
             name: item.name,
             image: item.image,
             size: item.size,
@@ -148,14 +146,21 @@ checkoutBtn.addEventListener('click', () => {
             quantity: item.quantity,
             status: 'Оформлен'
         });
+
+        // Удаляем из избранного, если есть
+        favorites = favorites.filter(f=>!(f.name === item.name && f.size === item.size));
+        localStorage.setItem('favorites', JSON.stringify(favorites));
     });
 
     localStorage.setItem('orders', JSON.stringify(orders));
+    let bonuses = Number(localStorage.getItem('bonuses') || 0);
 
-    // Очищаем корзину
+// +500 бонусов за каждый оформленный заказ
+bonuses += 500;
+
+localStorage.setItem('bonuses', bonuses);
     cart = [];
     localStorage.removeItem('cart');
-
     renderCart();
     alert('Заказ успешно оформлен!');
 });
