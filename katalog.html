@@ -4,545 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Каталог | НА ПОДЪЕМЕ</title>
-
+<link rel="stylesheet" href="katalog.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-html,body{
-height:100%;
-}
-
-body{
-font-family:'Montserrat',sans-serif;
-background:#9d9d9d;
-color:#111;
-display:flex;
-flex-direction:column;
-}
-
-/* HEADER */
-
-header{
-width:100%;
-height:82px;
-background:#f8f8f8;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 35px;
-position:sticky;
-top:0;
-z-index:100;
-box-shadow:0 2px 10px rgba(0,0,0,0.08);
-}
-
-.logo-wrapper{
-display:flex;
-align-items:center;
-gap:16px;
-}
-
-.logo-circle{
-width:58px;
-height:58px;
-border-radius:50%;
-overflow:hidden;
-background:white;
-box-shadow:0 5px 14px rgba(0,0,0,0.12);
-}
-
-.logo-circle img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.logo-wrapper h1{
-font-size:22px;
-font-weight:800;
-letter-spacing:1px;
-}
-
-nav{
-display:flex;
-gap:36px;
-}
-
-nav a{
-text-decoration:none;
-color:#111;
-font-weight:500;
-transition:0.25s;
-position:relative;
-}
-
-nav a:hover{
-color:#ff5b2e;
-}
-
-nav a::after{
-content:'';
-width:0%;
-height:2px;
-background:#ff5b2e;
-position:absolute;
-left:0;
-bottom:-6px;
-transition:0.25s;
-}
-
-nav a:hover::after{
-width:100%;
-}
-
-/* MAIN */
-
-.wrapper{
-width:93%;
-margin:28px auto;
-display:flex;
-gap:24px;
-flex:1;
-}
-
-/* SIDEBAR */
-
-.sidebar{
-width:285px;
-background:#f4f4f4;
-border-radius:28px;
-padding:28px;
-height:fit-content;
-position:sticky;
-top:100px;
-box-shadow:0 12px 24px rgba(0,0,0,0.14);
-}
-
-.sidebar h2{
-text-align:center;
-margin-bottom:28px;
-font-size:34px;
-}
-
-.filter-title{
-margin-top:22px;
-margin-bottom:14px;
-font-size:22px;
-font-weight:700;
-}
-
-select{
-width:100%;
-height:42px;
-border:none;
-border-radius:12px;
-background:#2b2b2b;
-color:white;
-padding:0 15px;
-font-size:15px;
-}
-
-.range{width:100%;accent-color:#ff5b2e;margin:12px 0;border:2px solid #ff5b2e;border-radius:12px;padding:4px;}
-
-.price-row{
-display:flex;
-justify-content:space-between;
-font-weight:500;
-}
-
-.check-group label{
-display:flex;
-align-items:center;
-gap:12px;
-margin-bottom:14px;
-font-size:18px;
-}
-
-input[type="checkbox"]{
-width:18px;
-height:18px;
-accent-color:#ff5b2e;
-}
-
-/* COLORS */
-
-.color-group{
-margin-top:12px;
-}
-
-.color-option{
-display:flex;
-align-items:center;
-gap:14px;
-margin-bottom:16px;
-font-size:18px;
-cursor:pointer;
-user-select:none;
-}
-
-.color-option input{
-display:none;
-}
-
-.color{
-width:24px;
-height:24px;
-border-radius:50%;
-border:2px solid rgba(0,0,0,0.08);
-transition:0.25s ease;
-opacity:0.9;
-}
-
-.color-option input:checked + .color{
-transform:scale(1.12);
-border:3px solid rgba(0,0,0,0.28);
-box-shadow:
-0 0 0 4px rgba(255,255,255,0.8),
-0 4px 10px rgba(0,0,0,0.12);
-opacity:1;
-}
-
-/* CONTENT */
-
-.content{
-flex:1;
-}
-
-/* HERO */
-
-.catalog-hero{
-width:100%;
-height:280px;
-border-radius:34px;
-overflow:hidden;
-position:relative;
-display:flex;
-align-items:center;
-
-background:
-linear-gradient(
-90deg,
-rgba(245,245,245,0.96) 0%,
-rgba(240,240,240,0.88) 40%,
-rgba(235,235,235,0.45) 100%
-),
-
-url("hero.jpg");
-
-background-size:cover;
-background-position:center right;
-
-box-shadow:0 18px 35px rgba(0,0,0,0.18);
-
-margin-bottom:30px;
-}
-
-.catalog-hero::before{
-content:'';
-position:absolute;
-width:500px;
-height:500px;
-background:rgba(255,255,255,0.25);
-border-radius:50%;
-right:-150px;
-top:-120px;
-filter:blur(12px);
-}
-
-.catalog-left{
-padding-left:60px;
-position:relative;
-z-index:2;
-}
-
-.catalog-small{
-font-size:15px;
-letter-spacing:4px;
-color:#666;
-margin-bottom:22px;
-}
-
-.catalog-hero h1{
-font-size:82px;
-font-weight:800;
-font-style:italic;
-line-height:1;
-margin-bottom:22px;
-}
-
-.catalog-hero p{
-font-size:30px;
-font-weight:500;
-color:#222;
-}
-
-/* PRODUCTS */
-
-.products{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:26px;
-}
-
-.card{
-background:#f4f4f4;
-border-radius:24px;
-padding:35px;
-position:relative;
-transition:0.3s;
-overflow:hidden;
-box-shadow:0 10px 24px rgba(0,0,0,0.12);
-}
-
-.card:hover{
-transform:translateY(-8px);
-box-shadow:0 18px 35px rgba(0,0,0,0.18);
-}
-
-.sale{
-position:absolute;
-top:18px;
-right:18px;
-background:#ff5b2e;
-color:white;
-padding:6px 12px;
-border-radius:12px;
-font-size:12px;
-font-weight:700;
-}
-
-.card-top{
-display:flex;
-align-items:center;
-gap:18px;
-}
-.fav-heart {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  font-size: 24px;
-  color: gray;
-  cursor: pointer;
-  transition: color 0.3s;
-  user-select: none;
-}
-
-.fav-heart.active {
-  color: red;
-}
-
-.card img{
-width:220px;
-height:170px;
-object-fit:contain;
-transition:0.35s;
-}
-
-.card:hover img{
-transform:scale(1.08);
-}
-
-.card h3{
-font-size:22px;
-margin-bottom:14px;
-font-weight:700;
-}
-
-.price{
-font-size:22px;
-font-weight:600;
-margin-bottom:20px;
-}
-
-.buy-btn{
-width:170px;
-height:44px;
-border:none;
-border-radius:14px;
-background:linear-gradient(135deg,#111,#2b2b2b);
-color:white;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-transition:0.25s;
-}
-
-.buy-btn:hover{
-background:linear-gradient(135deg,#ff5b2e,#ff7b57);
-transform:scale(1.03);
-}
-
-/* FOOTER */
-
-footer{
-width:100%;
-background:#f5f5f5;
-padding:32px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-size:18px;
-box-shadow:0 -3px 10px rgba(0,0,0,0.08);
-margin-top:auto;
-}
-
-footer div{
-flex:1;
-text-align:center;
-font-weight:500;
-}
-.size-btn{
-width:58px;
-height:44px;
-border:none;
-border-radius:16px;
-background:#222;
-color:white;
-font-weight:700;
-font-size:22px;
-cursor:pointer;
-transition:.2s;
-}
-
-.size-btn:hover{
-background:#ff5b2e;
-}
-
-#sizes{
-display:flex;
-justify-content:center;
-gap:8px;
-flex-wrap:wrap;
-}
-
-#closeSize{
-margin-top:25px;
-width:130px;
-height:40px;
-border:none;
-border-radius:14px;
-background:#d6d6d6;
-font-size:18px;
-cursor:pointer;
-}
-
-/* MOBILE */
-
-@media(max-width:1200px){
-
-.products{
-grid-template-columns:repeat(2,1fr);
-}
-
-}
-
-@media(max-width:900px){
-
-.wrapper{
-flex-direction:column;
-}
-
-.sidebar{
-width:100%;
-position:relative;
-top:0;
-}
-
-.products{
-grid-template-columns:1fr;
-}
-
-.catalog-hero{
-height:420px;
-}
-
-.catalog-left{
-padding:40px;
-}
-
-.catalog-hero h1{
-font-size:54px;
-}
-
-.catalog-hero p{
-font-size:24px;
-}
-
-footer{
-flex-direction:column;
-gap:16px;
-}
-
-nav{
-display:none;
-}
-
-}
-
-
-html, body{
-  min-height:100vh;
-  margin:0;
-  padding:0;
-}
-body{
-  display:flex;
-  flex-direction:column;
-}
-.wrapper{
-  flex:1 0 auto;
-}
-footer{
-  width:100%;
-  background:#f5f5f5;
-  padding:32px 40px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:18px;
-  box-shadow:0 -3px 10px rgba(0,0,0,0.08);
-  flex-shrink:0;
-  margin-top:auto;
-}
-
-</style>
 </head>
 
 <body>
+  <div id="sizeModal" class="size-modal">
+    <div class="size-modal-content">
+        <h2>Выберите размер</h2>
+
+        <div id="sizes"></div>
+
+        <button id="closeSize">Отмена</button>
+    </div>
+</div>
 
 <header>
-
-<div class="logo-wrapper">
-
-<div class="logo-circle">
-<img src="logo.png" alt="logo">
-</div>
-
-<h1>НА ПОДЪЕМЕ</h1>
-
-</div>
-
+<div class="logo-wrapper"><div class="logo-circle"><a href="index.html"><img src="logo.png" alt="logo"></a></div>
+<h1>НА ПОДЪЕМЕ</h1></div>
 <nav>
 <a href="index.html">Главная</a>
 <a href="katalog.html">Каталог</a>
 <a href="onas.html">О нас</a>
 <a href="kab.html">Личный кабинет</a>
-<a href = "korzina.html">Корзина</a>
+<a href="korzina.html" class="nav-cart-link">Корзина <span class="cart-badge">0</span></a>
 </nav>
 
 </header>
 
 <div class="wrapper">
 
-<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
@@ -559,19 +51,19 @@ footer{
 
 <div class="filter-title">Цена</div>
 
+<div class="price-inputs">
+    <input type="number" id="minPrice" placeholder="От">
+    <input type="number" id="maxPrice" placeholder="До">
+</div>
+
 <input
 type="range"
 class="range"
 min="0"
 max="60000"
-value="30000"
-id="priceRange"
-oninput="priceValue.innerText=this.value+' ₽'">
-
-<div class="price-row">
-<span>от 0 ₽</span>
-<span id="priceValue">до 60000 ₽</span>
-</div>
+step="1000"
+value="60000"
+id="priceRange">
 
 <div class="filter-title">Размер</div>
 
@@ -627,11 +119,10 @@ oninput="priceValue.innerText=this.value+' ₽'">
 
 </aside>
 
-<!-- CONTENT -->
 
 <div class="content">
 
-<!-- HERO -->
+
 
 <div class="catalog-hero">
 
@@ -651,12 +142,11 @@ oninput="priceValue.innerText=this.value+' ₽'">
 
 </div>
 
-<!-- PRODUCTS -->
-
 <div class="products">
 
 <div class="card" data-brand="Nike" data-color="pink" data-sizes="38,39,40">
   <div class="sale">NEW</div>
+  <div class="fav-heart">❤</div>
   <div class="card-top">
     <img src="pink.png">
     <div>
@@ -668,6 +158,7 @@ oninput="priceValue.innerText=this.value+' ₽'">
 </div>
 
 <div class="card" data-brand="Nike" data-color="green" data-sizes="40,41,42">
+  <div class="fav-heart">❤</div>
   <div class="card-top">
     <img src="green.png">
     <div>
@@ -680,6 +171,7 @@ oninput="priceValue.innerText=this.value+' ₽'">
 
 <div class="card" data-brand="Nike" data-color="pink,white" data-sizes="38,39,41">
   <div class="sale">SALE</div>
+  <div class="fav-heart">❤</div>
   <div class="card-top">
     <img src="pinkwhite.png">
     <div>
@@ -691,6 +183,7 @@ oninput="priceValue.innerText=this.value+' ₽'">
 </div>
 
 <div class="card" data-brand="Nike" data-color="blue,orange" data-sizes="39,40,42">
+  <div class="fav-heart">❤</div>
   <div class="card-top">
     <img src="blueorange.png">
     <div>
@@ -702,6 +195,7 @@ oninput="priceValue.innerText=this.value+' ₽'">
 </div>
 
 <div class="card" data-brand="Nike" data-color="red" data-sizes="38,39,40,41">
+  <div class="fav-heart">❤</div>
   <div class="sale">HOT</div>
   <div class="card-top">
     <img src="red.png">
@@ -714,6 +208,7 @@ oninput="priceValue.innerText=this.value+' ₽'">
 </div>
 
 <div class="card" data-brand="Nike" data-color="blue, white" data-sizes="38,40,42">
+  <div class="fav-heart">❤</div>
   <div class="card-top">
     <img src="bluewhite.png">
     <div>
@@ -725,6 +220,7 @@ oninput="priceValue.innerText=this.value+' ₽'">
 </div>
 
 <div class="card" data-brand="Nike" data-color="brown" data-sizes="41,42">
+  <div class="fav-heart">❤</div>
   <div class="card-top">
     <img src="brown.png">
     <div>
@@ -736,6 +232,7 @@ oninput="priceValue.innerText=this.value+' ₽'">
 </div>
 
 <div class="card" data-brand="Nike" data-color="orange" data-sizes="39,40">
+  <div class="fav-heart">❤</div>
   <div class="card-top">
     <img src="orange.png">
     <div>
@@ -747,6 +244,7 @@ oninput="priceValue.innerText=this.value+' ₽'">
 </div>
 
 <div class="card" data-brand="Nike" data-color="gray" data-sizes="38,39">
+  <div class="fav-heart">❤</div>
   <div class="card-top">
     <img src="gray.png">
     <div>
@@ -766,211 +264,255 @@ oninput="priceValue.innerText=this.value+' ₽'">
 <footer>
 
 <div>
-Телефон: +7-900-015-15-15
+Телефон: <a href="tel:+79000151515" class="contact-link">+7-900-015-15-15</a>
 </div>
 
 <div>
-Почта: krasovka@gmail.com
+Почта: <a href="mailto:krasovka@gmail.com" class="contact-link">krasovka@gmail.com</a>
 </div>
 
-<div>
+<div class="footer-address">
 Адрес: г. Угинск ул. Тамары 23
 </div>
 
 </footer>
+<script>
+
+const modal =
+document.getElementById('sizeModal');
+
+const sizesBlock =
+document.getElementById('sizes');
+
+document
+.getElementById('closeSize')
+.onclick = () => {
+
+    modal.classList.remove('active');
+
+};
+
+document
+.querySelectorAll('.buy-btn')
+.forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        const card =
+            btn.closest('.card');
+
+        const sizes =
+            card.dataset.sizes.split(',');
+
+        sizesBlock.innerHTML = '';
+
+        sizes.forEach(size => {
+
+            const button =
+                document.createElement('button');
+
+            button.className =
+                'size-btn';
+
+            button.textContent =
+                size;
+
+            button.onclick = () => {
+
+                addToCart(card,size);
+
+                modal.classList.remove('active');
+
+            };
+
+            sizesBlock.appendChild(button);
+
+        });
+
+        modal.classList.add('active');
+
+    });
+
+});
+
+function addToCart(card,size){
+
+    const item = {
+
+        name:
+            card.querySelector('h3').innerText,
+
+        price:
+            card.querySelector('.price').innerText,
+
+        image:
+            card.querySelector('img').src,
+
+        size:size,
+
+        quantity:1
+
+    };
+
+    let cart =
+        JSON.parse(
+            localStorage.getItem('cart') || '[]'
+        );
+
+    cart.push(item);
+
+    localStorage.setItem(
+        'cart',
+        JSON.stringify(cart)
+    );
+updateCartBadge();
+    alert(
+        'Товар добавлен в корзину\nРазмер: ' + size
+    );
+
+}
+
+</script>
+<script>
+document.querySelectorAll('.card').forEach(card => {
+    const sizes = card.dataset.sizes.split(',').map(s => s.trim());
+    const sizesDiv = document.createElement('div');
+    sizesDiv.classList.add('sizes-view');
+    sizesDiv.textContent = 'Размеры: ' + sizes.join(' • ');
+    const cardContent = card.querySelector('.card-top div');
+    cardContent.insertBefore(sizesDiv, cardContent.querySelector('.buy-btn'));
+});
+</script>
 
 <script>
 const cards=document.querySelectorAll('.card');
 const priceRange=document.getElementById('priceRange');
-const priceValue=document.getElementById('priceValue');
+const minPrice=document.getElementById('minPrice');
+const maxPrice=document.getElementById('maxPrice');
 const sizeChecks=document.querySelectorAll('.check-group input');
 const brandFilter=document.getElementById('brandFilter');
 const colorChecks=document.querySelectorAll('.color-group input');
 
-priceRange.value=60000;
-
 function filterProducts(){
+    const minVal = minPrice.value ? Number(minPrice.value) : 0;
+    const maxVal = maxPrice.value ? Number(maxPrice.value) : Number(priceRange.value);
+    cards.forEach(card => {
+        const price = parseInt(card.querySelector('.price').innerText.replace(/\D/g,''));
+        const cardBrand = card.dataset.brand;
+        const cardColor = card.dataset.color.split(',').map(c=>c.trim());
+        const cardSizes = card.dataset.sizes.split(',').map(Number);
 
- const maxPrice=Number(priceRange.value);
+        const selectedBrand = brandFilter.value;
+        const selectedColors = [...colorChecks].filter(x=>x.checked).map(x=>x.value);
+        const selectedSizes = [...sizeChecks].filter(x=>x.checked).map(x=>Number(x.parentElement.textContent.trim()));
 
- priceValue.innerText='до '+maxPrice+' ₽';
+        let show = price>=minVal && price<=maxVal;
 
- const selectedSizes=[...sizeChecks]
- .filter(x=>x.checked)
- .map(x=>Number(x.parentElement.textContent.trim()));
+        if(selectedBrand) show = show && cardBrand===selectedBrand;
+        if(selectedColors.length) show = show && selectedColors.some(c=>cardColor.includes(c));
+        if(selectedSizes.length) show = show && selectedSizes.some(s=>cardSizes.includes(s));
 
- const selectedColors=[...colorChecks]
- .filter(x=>x.checked)
- .map(x=>x.value);
-
- const selectedBrand=brandFilter.value;
-
- cards.forEach(card=>{
-
-   const price=parseInt(
-      card.querySelector('.price').innerText.replace(/\D/g,'')
-   );
-
-   const cardBrand=card.dataset.brand;
-   const cardColor=card.dataset.color;
-
-   const cardSizes=card.dataset.sizes
-      .split(',')
-      .map(Number);
-
-   let show=true;
-
-   if(price>maxPrice) show=false;
-
-   if(selectedBrand){
-      show=show && cardBrand===selectedBrand;
-   }
-
- if(selectedColors.length){
-
-   const colors=cardColor
-      .split(',')
-      .map(c=>c.trim());
-
-   show=
-   show &&
-   selectedColors.some(color =>
-      colors.includes(color)
-   );
+        card.style.display = show ? 'block' : 'none';
+    });
 }
-
-   if(selectedSizes.length){
-      show=
-      show &&
-      cardSizes.some(size =>
-         selectedSizes.includes(size)
-      );
-   }
-
-   card.style.display=show ? 'block' : 'none';
-
- });
-
-}
-
- 
 
 priceRange.addEventListener('input',filterProducts);
-
-sizeChecks.forEach(x=>
-x.addEventListener('change',filterProducts)
-);
-
-colorChecks.forEach(x=>
-x.addEventListener('change',filterProducts)
-);
-
-brandFilter.addEventListener(
-'change',
-filterProducts
-);
-if(!localStorage.getItem('cart')){
- localStorage.setItem('cart','[]');
-}
-
-const modal=document.createElement('div');
-modal.innerHTML=`
-<div id="sizeModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);justify-content:center;align-items:center;z-index:9999;">
-<div style="background:white;padding:25px;border-radius:20px;text-align:center;">
-<h3>Выберите размер</h3>
-<div id="sizes"></div>
-<br><button id="closeSize">Отмена</button>
-</div></div>`;
-document.body.appendChild(modal);
-
-const sizesMap={
-'Nike Air Mariah Pink':[38,39,40],
-'Nike Air Mariah Green':[40,41,42],
-'Nike Air Mariah Pink-White':[38,39,41],
-'Nike Air Mariah Blue-Orange':[39,40,42],
-'Nike Air Mariah Red':[38,39,40,41],
-'Nike Air Mariah Blue-White':[38,40,42],
-'Nike Air Mariah Brown':[41,42],
-'Nike Air Mariah Orange':[39,40],
-'Nike Air Mariah Gray':[38,39]
-};
-
-let currentCard=null;
-
-document.querySelectorAll('.buy-btn').forEach(btn=>{
- btn.addEventListener('click',()=>{
-   currentCard=btn.closest('.card');
-   const name=currentCard.querySelector('h3').innerText;
-   const wrap=document.getElementById('sizes');
-   wrap.innerHTML='';
-   sizesMap[name].forEach(size=>{
-      const b=document.createElement('button');
-      b.classList.add('size-btn');
-      b.textContent=size;
-      b.style.margin='5px';
-      b.onclick=()=>{
-        let cart=JSON.parse(localStorage.getItem('cart'));
-        cart.push({
-          name:name,
-          size:size,
-          price:parseInt(currentCard.querySelector('.price').innerText.replace(/\D/g,'')),
-          image:currentCard.querySelector('img').getAttribute('src'),
-          quantity:1
-        });
-        localStorage.setItem('cart',JSON.stringify(cart));
-        document.getElementById('sizeModal').style.display='none';
-        alert('Товар добавлен в корзину');
-      };
-      wrap.appendChild(b);
-   });
-   document.getElementById('sizeModal').style.display='flex';
- });
-});
-
-document.addEventListener('click',e=>{
- if(e.target.id==='closeSize'){
-   document.getElementById('sizeModal').style.display='none';
- }
-});
+minPrice.addEventListener('input',filterProducts);
+maxPrice.addEventListener('input',filterProducts);
+sizeChecks.forEach(x=>x.addEventListener('change',filterProducts));
+colorChecks.forEach(x=>x.addEventListener('change',filterProducts));
+brandFilter.addEventListener('change',filterProducts);
 
 filterProducts();
-document.querySelectorAll('.card').forEach(card => {
-    // Создаем и добавляем серое сердечко
-    const heart = document.createElement('div');
-    heart.classList.add('fav-heart');
-    heart.innerHTML = '❤';
-    card.appendChild(heart);
 
-    // Проверяем, есть ли товар в избранном
-    const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+function filterProducts(){
+    const minVal = minPrice.value ? Number(minPrice.value) : 0;
+    const maxVal = maxPrice.value ? Number(maxPrice.value) : Number(priceRange.value);
+    let visibleCount = 0; // счётчик видимых карточек
+
+    cards.forEach(card => {
+        const price = parseInt(card.querySelector('.price').innerText.replace(/\D/g,''));
+        const cardBrand = card.dataset.brand;
+        const cardColor = card.dataset.color.split(',').map(c=>c.trim());
+        const cardSizes = card.dataset.sizes.split(',').map(Number);
+
+        const selectedBrand = brandFilter.value;
+        const selectedColors = [...colorChecks].filter(x=>x.checked).map(x=>x.value);
+        const selectedSizes = [...sizeChecks].filter(x=>x.checked).map(x=>Number(x.parentElement.textContent.trim()));
+
+        let show = price>=minVal && price<=maxVal;
+
+        if(selectedBrand) show = show && cardBrand===selectedBrand;
+        if(selectedColors.length) show = show && selectedColors.some(c=>cardColor.includes(c));
+        if(selectedSizes.length) show = show && selectedSizes.some(s=>cardSizes.includes(s));
+
+        card.style.display = show ? 'block' : 'none';
+
+        if(show) visibleCount++;
+    });
+
+    // Показать/скрыть заглушку
+    const noResults = document.getElementById('noResults');
+    if(visibleCount === 0){
+        noResults.style.display = 'flex';
+    } else {
+        noResults.style.display = 'none';
+    }
+}
+</script>
+<script>
+document.querySelectorAll('.fav-heart').forEach(heart => {
+
+    const card = heart.closest('.card');
     const name = card.querySelector('h3').innerText;
-    if(favorites.some(f => f.name === name)) {
+
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    if(favorites.some(f => f.name === name)){
         heart.classList.add('active');
     }
-
-    // Обработчик клика
     heart.addEventListener('click', () => {
-        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-        const itemIndex = favorites.findIndex(f => f.name === name);
 
-        if(itemIndex === -1) {
-            // Добавляем товар в избранное
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+
+        const index = favorites.findIndex(f => f.name === name);
+
+        if(index === -1){
             favorites.push({
                 name: name,
-                price: parseInt(card.querySelector('.price').innerText.replace(/\D/g,'')),
-                image: card.querySelector('img').getAttribute('src')
+                price: card.querySelector('.price').innerText,
+                image: card.querySelector('img').src
             });
             heart.classList.add('active');
-        } else {
-            // Убираем товар из избранного
-            favorites.splice(itemIndex, 1);
+        }else{
+            favorites.splice(index, 1);
             heart.classList.remove('active');
         }
 
         localStorage.setItem('favorites', JSON.stringify(favorites));
     });
+    });
+   function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const badge = document.querySelector('.cart-badge');
+  
+  if (badge) {
+    badge.textContent = totalCount;
+    badge.classList.toggle('active', totalCount > 0);
+  }
+}
+
+
+updateCartBadge();
+
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cart' || !e.key) {
+    updateCartBadge();
+  }
 });
 </script>
-
+</body>
+</html>
 </body>
 </html>

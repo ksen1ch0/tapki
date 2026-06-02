@@ -4,192 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Настройки</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
-body{
-font-family:'Montserrat',sans-serif;
-background:#9d9d9d;
-overflow-x:hidden;
-min-height:100vh;
-display:flex;
-flex-direction:column;
-}
-
-header{
-width:100%;
-height:82px;
-background:#f8f8f8;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 35px;
-box-shadow:0 2px 10px rgba(0,0,0,.08);
-}
-
-.logo-wrapper{
-display:flex;
-align-items:center;
-gap:16px;
-}
-
-.logo-circle{
-width:58px;
-height:58px;
-border-radius:50%;
-overflow:hidden;
-background:white;
-}
-
-.logo-circle img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.logo-wrapper h1{
-font-size:22px;
-font-weight:800;
-}
-
-nav{
-display:flex;
-gap:36px;
-}
-
-nav a{
-text-decoration:none;
-color:#111;
-font-weight:500;
-}
-
-.container{
-width:93%;
-margin:40px auto;
-flex:1;
-}
-
-.title{
-font-size:72px;
-font-weight:800;
-margin-bottom:35px;
-}
-
-.settings{
-width:100%;
-background:#f5f5f5;
-padding:50px;
-border-radius:30px;
-box-shadow:0 10px 24px rgba(0,0,0,.12);
-}
-
-.input-group{
-margin-bottom:35px;
-}
-
-label{
-display:block;
-font-size:24px;
-margin-bottom:14px;
-font-weight:700;
-}
-
-.name-row{
-display:flex;
-gap:25px;
-}
-
-.name-row input{
-flex:1;
-}
-
-input{
-width:100%;
-height:68px;
-border:2px solid transparent;
-border-radius:18px;
-padding:0 25px;
-font-size:20px;
-background:#ececec;
-transition:.3s;
-outline:none;
-}
-
-input:focus{
-border:2px solid #ff5b2e;
-background:white;
-box-shadow:0 0 12px rgba(255,91,46,.2);
-}
-
-button{
-margin-top:25px;
-width:280px;
-height:64px;
-border:none;
-border-radius:18px;
-background:linear-gradient(135deg,#111,#2c2c2c);
-color:white;
-font-size:18px;
-font-weight:700;
-cursor:pointer;
-transition:.3s;
-}
-
-button:hover{
-background:linear-gradient(135deg,#ff5b2e,#ff7b57);
-}
-
-footer{
-width:100%;
-background:#f5f5f5;
-padding:32px 40px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-size:18px;
-box-shadow:0 -3px 10px rgba(0,0,0,.08);
-margin-top:auto;
-}
-
-footer div{
-flex:1;
-text-align:center;
-font-weight:500;
-}
-
-@media(max-width:850px){
-
-nav{
-display:none;
-}
-
-.name-row{
-flex-direction:column;
-}
-
-.title{
-font-size:48px;
-}
-
-footer{
-flex-direction:column;
-gap:15px;
-}
-
-}
-</style>
+<link rel="stylesheet" type="text/css" href="nastrojki.css">
 </head>
 <body>
 
 <header>
 <div class="logo-wrapper">
-<div class="logo-circle"><img src="logo.png"></div>
+<div class="logo-circle"><a href="index.html"><img src="logo.png" alt="logo"></a></div>
 <h1>НА ПОДЪЕМЕ</h1>
 </div>
 <nav>
@@ -197,7 +19,7 @@ gap:15px;
 <a href="katalog.html">Каталог</a>
 <a href="onas.html">О нас</a>
 <a href="kab.html">Личный кабинет</a>
-<a href="korzina.html">Корзина</a>
+<a href="korzina.html" class="nav-cart-link">Корзина <span class="cart-badge">0</span></a>
 </nav>
 </header>
 
@@ -208,14 +30,14 @@ gap:15px;
 <div class="input-group">
 <label>Имя и фамилия</label>
 <div class="name-row">
-<input type="text" id="firstName" placeholder="Имя">
-<input type="text" id="lastName" placeholder="Фамилия">
+<input type="text" id="firstName" placeholder="Имя" maxlength="30">
+<input type="text" id="lastName" placeholder="Фамилия" maxlength="30">
 </div>
 </div>
 
 <div class="input-group">
 <label>День рождения</label>
-<input type="date" id="birthday">
+<input type="text" id="birthday" placeholder="ГГГГ-ММ-ДД (необязательно)" maxlength="10" inputmode="numeric">
 </div>
 
 <div class="input-group">
@@ -225,23 +47,26 @@ gap:15px;
 
 <div class="input-group">
 <label>Пароль</label>
-<input type="password" id="password" placeholder="Введите пароль">
+<div class="password-wrapper">
+<input type="password" id="password" placeholder="Введите пароль" maxlength="50">
+<button type="button" class="toggle-pass" onclick="togglePassword()">Показать</button>
+</div>
 </div>
 
-<button onclick="saveSettings()">Сохранить изменения</button>
+<button onclick="saveSettings()">Сохранить</button>
 </div>
 
+<a href="kab.html" class="back-btn">← Назад</a>
 </div>
 
 <footer>
-<div>Телефон: +7-900-015-15-15</div>
-<div>Почта: krasovka@gmail.com</div>
-<div>Адрес: г. Угинск ул. Тамары 23</div>
+<div>Телефон: <a href="tel:+79000151515" class="contact-link">+7-900-015-15-15</a></div>
+<div>Почта: <a href="mailto:krasovka@gmail.com" class="contact-link">krasovka@gmail.com</a></div>
+<div class="footer-address">Адрес: г. Угинск ул. Тамары 23</div>
 </footer>
 
 <script>
-// Загрузка данных при открытии
-window.addEventListener('load', ()=>{
+window.addEventListener('load', function(){
   const user = JSON.parse(localStorage.getItem('user') || '{}');
   document.getElementById('firstName').value = user.firstName || '';
   document.getElementById('lastName').value = user.lastName || '';
@@ -250,23 +75,130 @@ window.addEventListener('load', ()=>{
   document.getElementById('password').value = user.password || '';
 });
 
-// Сохранение изменений
+function togglePassword(){
+  const input = document.getElementById('password');
+  const btn = document.querySelector('.toggle-pass');
+  if(input.type === 'password'){
+    input.type = 'text';
+    btn.textContent = 'Скрыть';
+  } else {
+    input.type = 'password';
+    btn.textContent = 'Показать';
+  }
+  input.focus();
+}
+
+function isValidEmail(email){
+  if(email === '') return true;  
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(String(email).toLowerCase());
+}
+
 function saveSettings(){
-  const user = {
-    firstName: document.getElementById('firstName').value.trim(),
-    lastName: document.getElementById('lastName').value.trim(),
-    birthday: document.getElementById('birthday').value,
-    email: document.getElementById('email').value.trim(),
-    password: document.getElementById('password').value
-  };
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+  const birthday = document.getElementById('birthday').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  
+  const emailInput = document.getElementById('email');
+  
+  document.querySelectorAll('.error-msg').forEach(el => el.remove());
+  document.querySelectorAll('.error').forEach(el => el.classList.remove('error'));
+  
+  if(email !== ''){
+    if(!isValidEmail(email)){
+      showError(emailInput, 'Введите корректный email (пример: user@example.com)');
+      return;
+    }
+  }
+  
+  if(password !== ''){
+    if(password.length < 6){
+      showError(document.getElementById('password'), 'Пароль должен содержать минимум 6 символов');
+      return;
+    }
+  }
+  
+  if(birthday !== ''){
+    const parts = birthday.split('-');
+    if(parts.length !== 3 || parts[0].length !== 4){
+      showError(bd, 'Неверный формат даты. Используйте ГГГГ-ММ-ДД');
+      return;
+    }
+    const year = parts[0];
+    if(isNaN(year) || year < 1900 || year > 2099){
+      showError(bd, 'Год должен быть от 1900 до 2099');
+      return;
+    }
+  }
+  
+  const user = { firstName, lastName, birthday, email, password };
   localStorage.setItem('user', JSON.stringify(user));
-  alert('Настройки сохранены!');
-  // Обновление имени и фамилии в личном кабинете
-  if(window.opener){
-    window.opener.updateUserName(user.firstName, user.lastName);
+  
+  showSuccess('Настройки сохранены!');
+  
+  if(window.opener && !window.opener.closed){
+    try{
+      if(typeof window.opener.loadUser === 'function') window.opener.loadUser();
+      if(typeof window.opener.updateBonuses === 'function') window.opener.updateBonuses();
+    }catch(e){}
+  }
+  
+  setTimeout(function(){
+    window.location.href = 'kab.html';
+  }, 600);
+}
+
+function showError(input, message){
+  input.classList.add('error');
+  input.focus();
+  
+  const oldError = input.closest('.input-group').querySelector('.error-msg');
+  if(oldError) oldError.remove();
+  
+  const errorDiv = document.createElement('div');
+  errorDiv.className = 'error-msg';
+  errorDiv.textContent = message;
+  input.closest('.input-group').appendChild(errorDiv);
+  
+  input.addEventListener('input', function clearError(){
+    input.classList.remove('error');
+    const err = input.closest('.input-group').querySelector('.error-msg');
+    if(err) err.remove();
+    input.removeEventListener('input', clearError);
+  }, {once: true});
+}
+
+function showSuccess(message){
+  const btn = document.querySelector('.settings button');
+  const originalText = btn.textContent;
+  btn.textContent = message;
+  btn.style.background = 'linear-gradient(135deg, #2dbb55, #3dd166)';
+  setTimeout(function(){
+    btn.textContent = originalText;
+    btn.style.background = '';
+  }, 2500);
+}
+
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const badge = document.querySelector('.cart-badge');
+  
+  if (badge) {
+    badge.textContent = totalCount;
+    badge.classList.toggle('active', totalCount > 0);
   }
 }
-</script>
 
+document.addEventListener('DOMContentLoaded', updateCartBadge);
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cart' || !e.key) {
+    updateCartBadge();
+  }
+});
+</script>
 </body>
 </html>

@@ -4,68 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Мои заказы</title>
-
+<link rel="stylesheet" href="zakazi.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{min-height:100vh;display:flex;flex-direction:column;font-family:'Montserrat',sans-serif;background:#9d9d9d;color:#111;}
-header{width:100%;height:82px;background:#f8f8f8;display:flex;align-items:center;justify-content:space-between;padding:0 35px;box-shadow:0 2px 10px rgba(0,0,0,.08);}
-.logo-wrapper{display:flex;align-items:center;gap:16px;}
-.logo-circle{width:58px;height:58px;border-radius:50%;overflow:hidden;background:white;}
-.logo-circle img{width:100%;height:100%;object-fit:cover;}
-.logo-wrapper h1{font-size:22px;font-weight:800;}
-nav{display:flex;gap:36px;}
-nav a{text-decoration:none;color:#111;font-weight:500;}
-.container{width:93%;margin:40px auto;flex:1;}
-.title{font-size:58px;font-weight:800;margin-bottom:30px;}
-.orders{display:flex;flex-direction:column;gap:24px;}
-.order{background:#f5f5f5;border-radius:28px;padding:30px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 25px rgba(0,0,0,0.12);}
-.order-left{display:flex;align-items:center;gap:24px;}
-.order img{width:140px;height:110px;object-fit:contain;}
-.order-info h2{font-size:30px;margin-bottom:10px;}
-.order-info p{font-size:18px;color:#555;}
-.status{padding:14px 22px;border-radius:14px;font-weight:700;color:white;}
-.status.oformlen{background:#ff962f;}
-.status.vputi{background:#ffa64d;}
-.status.dostavlen{background:#2dbb55;}
-.status.otmenen{background:#ff4c4c;}
-.cancel-btn{margin-top:12px;padding:10px 16px;border:none;border-radius:12px;background:#ff4c4c;color:white;font-weight:700;cursor:pointer;transition:.3s;}
-.cancel-btn:hover{background:#e53838;}
-footer{width:100%;background:#f5f5f5;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;font-size:18px;box-shadow:0 -3px 10px rgba(0,0,0,.08);margin-top:auto;}
-footer div{flex:1;text-align:center;font-weight:500;}
-@media(max-width:850px){nav{display:none;}.order{flex-direction:column;gap:20px;}footer{flex-direction:column;gap:15px;}}
-</style>
 </head>
 <body>
 
 <header>
-<div class="logo-wrapper">
-<div class="logo-circle"><img src="logo.png"></div>
-<h1>НА ПОДЪЕМЕ</h1>
-</div>
+<div class="logo-wrapper"><div class="logo-circle"><a href="index.html"><img src="logo.png" alt="logo"></a></div>
+<h1>НА ПОДЪЕМЕ</h1></div>
+
 <nav>
 <a href="index.html">Главная</a>
 <a href="katalog.html">Каталог</a>
 <a href="onas.html">О нас</a>
 <a href="kab.html">Личный кабинет</a>
-<a href="korzina.html">Корзина</a>
+<a href="korzina.html" class="nav-cart-link">Корзина <span class="cart-badge">0</span></a>
 </nav>
 </header>
 
 <div class="container">
-<h1 class="title">Мои заказы</h1>
-<div class="orders" id="ordersContainer"></div>
+  <h1 class="title">Мои заказы</h1>
+  <div class="orders" id="ordersContainer"></div>
 </div>
 
 <footer>
-<div>Телефон: +7-900-015-15-15</div>
-<div>Почта: krasovka@gmail.com</div>
-<div>Адрес: г. Угинск ул. Тамары 23</div>
+  <div>
+    Телефон: <a href="tel:+79000151515" class="contact-link">+7-900-015-15-15</a>
+  </div>
+  <div>
+    Почта: <a href="mailto:krasovka@gmail.com" class="contact-link">krasovka@gmail.com</a>
+  </div>
+  <div class="footer-address">
+    Адрес: г. Угинск ул. Тамары 23
+  </div>
 </footer>
 
 <script>
 let orders = JSON.parse(localStorage.getItem('orders') || '[]');
+orders = orders.filter(order => order && (order.items || order.name));
+localStorage.setItem('orders', JSON.stringify(orders));
+
 const container = document.getElementById('ordersContainer');
 
 function renderOrders(){
@@ -75,34 +53,101 @@ function renderOrders(){
         return;
     }
 
-    orders.forEach((order,index)=>{
+    orders.forEach((order, index)=>{
+        if (!order) return;
+        
         const orderDiv = document.createElement('div');
         orderDiv.classList.add('order');
 
-        let statusClass = '';
-        switch(order.status){
+        const status = order.status || 'Оформлен';
+        let statusClass = 'oformlen';
+        switch(status){
             case 'Оформлен': statusClass='oformlen'; break;
             case 'В пути': statusClass='vputi'; break;
             case 'Доставлен': statusClass='dostavlen'; break;
             case 'Отменён': statusClass='otmenen'; break;
-            default: statusClass='oformlen';
         }
 
-        const cancelButton = order.status==='Оформлен' ? 
+        const orderId = order.id !== order? order.id : index;
+        
+        let items = [];
+        let totalAmount = 0;
+        
+        if (order.items && Array.isArray(order.items) && order.items.length > 0) {
+            items = order.items;
+            totalAmount = order.totalAmount || 0;
+        } else if (order.name) {
+            items = [{
+                name: order.name || 'order',
+                image: order.image || '',
+                size: order.size || 'Не указан',
+                price: order.price || 0,
+                quantity: order.quantity || 1
+            }];
+            totalAmount = (order.price || 0) * (order.quantity || 1);
+        } else {
+            items = [{
+                name: 'order',
+                image: '',
+                size: '-',
+                price: 0,
+                quantity: 1
+            }];
+        }
+
+        let itemsHTML = '';
+        items.forEach((item)=>{
+            const itemName = (item.name && item.name !== 'order') ? item.name : 'order';
+            const itemSize = (item.size && item.size !== 'order') ? item.size : 'Не указан';
+            const itemQty = (item.quantity && item.quantity !== 'order') ? item.quantity : 1;
+            const itemPrice = (item.price && item.price !== 'order') ? item.price : 0;
+            const itemImage = (item.image && item.image !== 'order') ? item.image : '';
+            
+            itemsHTML += `
+                <div style="display:flex;align-items:center;gap:15px;margin-bottom:12px;padding:12px;background:#fff;border-radius:12px;">
+                    <img src="${itemImage}" onerror="this.style.display='none'" style="width:80px;height:60px;object-fit:contain;border-radius:8px;">
+                    <div style="flex:1;">
+                        <div style="font-weight:600;font-size:16px;">${itemName}</div>
+                        <div style="font-size:14px;color:#666;">Размер: ${itemSize} | Кол-во: ${itemQty}</div>
+                    </div>
+                    <div style="font-weight:700;font-size:16px;">${Number(itemPrice).toLocaleString()} ₽</div>
+                </div>
+            `;
+        });
+
+        const cancelButton = status === 'Оформлен' ? 
             '<button class="cancel-btn" onclick="cancelOrder('+index+')">Отменить заказ</button>' : '';
 
+        let orderDate = '';
+        if (order.date && order.date !== 'order') {
+            try {
+                orderDate = new Date(order.date).toLocaleString('ru-RU');
+            } catch(e) {
+                orderDate = '';
+            }
+        }
+
         orderDiv.innerHTML = `
-        <div class="order-left">
-            <img src="${order.image}">
-            <div class="order-info">
-                <h2>${order.name}</h2>
-                <p>Заказ #${1000 + order.id}</p>
-                <p>Размер: ${order.size}</p>
-                <p>Количество: ${order.quantity}</p>
+        <div style="width:100%;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #e0e0e0;">
+                <div>
+                    <h2 style="font-size:22px;font-weight:700;margin-bottom:5px;">Заказ #${1000 + Number(orderId)}</h2>
+                    ${orderDate ? '<div style="font-size:14px;color:#666;">'+orderDate+'</div>' : ''}
+                </div>
+                <div class="status ${statusClass}">${status}</div>
+            </div>
+            
+            <div style="margin-bottom:20px;">
+                ${itemsHTML}
+            </div>
+            
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:15px;border-top:2px solid #e0e0e0;">
+                <div style="font-size:20px;font-weight:700;">
+                    Итого: ${Number(totalAmount).toLocaleString()} ₽
+                </div>
                 ${cancelButton}
             </div>
         </div>
-        <div class="status ${statusClass}">${order.status}</div>
         `;
 
         container.appendChild(orderDiv);
@@ -110,34 +155,43 @@ function renderOrders(){
 }
 
 function cancelOrder(index){
-
+    if (!orders[index]) return;
+    
     orders[index].status = 'Отменён';
 
-    let bonuses = Number(
-        localStorage.getItem('bonuses') || 0
-    );
-
+    let bonuses = Number(localStorage.getItem('bonuses') || 0);
     bonuses -= 500;
 
     if(bonuses < 0){
         bonuses = 0;
     }
 
-    localStorage.setItem(
-        'bonuses',
-        bonuses
-    );
-
-    localStorage.setItem(
-        'orders',
-        JSON.stringify(orders)
-    );
+    localStorage.setItem('bonuses', bonuses);
+    localStorage.setItem('orders', JSON.stringify(orders));
 
     renderOrders();
-
 }
 
 renderOrders();
+
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const badge = document.querySelector('.cart-badge');
+  
+  if (badge) {
+    badge.textContent = totalCount;
+    badge.classList.toggle('active', totalCount > 0);
+  }
+}
+
+updateCartBadge();
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cart' || !e.key) {
+    updateCartBadge();
+  }
+});
 </script>
 
 </body>

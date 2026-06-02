@@ -4,60 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Корзина — НА ПОДЪЕМЕ</title>
+<link rel="stylesheet" href="korzina.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{font-family:'Montserrat',sans-serif;background:#9d9d9d;color:#111;display:flex;flex-direction:column;min-height:100vh;}
-header{width:100%;height:82px;background:#f8f8f8;display:flex;align-items:center;justify-content:space-between;padding:0 35px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
-.logo-wrapper{display:flex;align-items:center;gap:16px;}
-.logo-circle{width:58px;height:58px;border-radius:50%;overflow:hidden;background:white;box-shadow:0 5px 14px rgba(0,0,0,0.12);}
-.logo-circle img{width:100%;height:100%;object-fit:cover;}
-.logo-wrapper h1{font-size:22px;font-weight:800;letter-spacing:1px;}
-nav{display:flex;gap:36px;}
-nav a{text-decoration:none;color:#111;font-weight:500;transition:0.25s;position:relative;}
-nav a:hover{color:#ff5b2e;}
-nav a::after{content:'';width:0%;height:2px;background:#ff5b2e;position:absolute;left:0;bottom:-6px;transition:0.25s;}
-nav a:hover::after{width:100%;}
-.wrapper{width:93%;margin:28px auto;flex:1;display:flex;flex-direction:column;gap:24px;}
-.cart-header{font-size:34px;font-weight:700;margin-bottom:24px;text-align:center;}
-.cart-items{display:flex;flex-direction:column;gap:24px;}
-.cart-item{background:#f4f4f4;border-radius:24px;padding:20px;display:flex;align-items:center;gap:24px;box-shadow:0 10px 24px rgba(0,0,0,0.12);}
-.cart-item img{width:150px;height:120px;object-fit:contain;border-radius:12px;}
-.cart-item-details{flex:1;display:flex;flex-direction:column;gap:8px;}
-.cart-item-details h3{font-size:24px;font-weight:700;}
-.cart-item-details .price{font-size:22px;font-weight:600;}
-.cart-item-details .quantity{display:flex;align-items:center;gap:12px;}
-.quantity button{padding:4px 10px;border:none;border-radius:8px;background:#111;color:white;font-size:16px;cursor:pointer;transition:0.2s;}
-.quantity button:hover{background:#333;}
-.quantity span{min-width:30px;text-align:center;display:inline-block;font-size:16px;}
-.remove-btn{padding:6px 12px;background:#111;color:white;border:none;border-radius:12px;font-weight:700;cursor:pointer;transition:0.25s;}
-.remove-btn:hover{background:#333;}
-.total-row{margin-top:24px;text-align:right;font-size:24px;font-weight:700;}
-.checkout-btn{margin-top:16px;padding:14px 28px;background:linear-gradient(135deg,#111,#2b2c2c);color:white;border:none;border-radius:18px;font-size:18px;font-weight:700;cursor:pointer;transition:0.35s;display:block;margin-left:auto;}
-.checkout-btn:hover{background:linear-gradient(135deg,#ff5b2e,#ff7b57);}
-footer{width:100%;background:#f5f5f5;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;font-size:18px;box-shadow:0 -3px 10px rgba(0,0,0,.08);margin-top:auto;}
-footer div{flex:1;text-align:center;font-weight:500;}
-@media(max-width:900px){.cart-item{flex-direction:column;align-items:flex-start;}.cart-item img{width:100%;height:auto;}}
-</style>
 </head>
 <body>
 
 <header>
-<div class="logo-wrapper"><div class="logo-circle"><img src="logo.png" alt="logo"></div><h1>НА ПОДЪЕМЕ</h1></div>
-<nav><a href="index.html">Главная</a><a href="katalog.html">Каталог</a><a href="onas.html">О нас</a><a href="kab.html">Личный кабинет</a><a href="korzina.html">Корзина</a></nav>
+<div class="logo-wrapper">
+  <div class="logo-circle"><a href="index.html"><img src="logo.png" alt="logo"></a></div>
+  <h1>НА ПОДЪЕМЕ</h1>
+</div>
+<nav>
+  <a href="index.html">Главная</a>
+  <a href="katalog.html">Каталог</a>
+  <a href="onas.html">О нас</a>
+  <a href="kab.html">Личный кабинет</a>
+  <a href="korzina.html" class="nav-cart-link">Корзина <span class="cart-badge">0</span></a>
+</nav>
 </header>
 
 <div class="wrapper">
-<div class="cart-header">Ваша корзина</div>
-<div class="cart-items" id="cartItems"></div>
-<div class="total-row" id="totalPrice">Итого: 0 ₽</div>
-<button class="checkout-btn">Оформить заказ</button>
+  <div class="cart-header">Ваша корзина</div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="total-row" id="totalPrice">Итого: 0 ₽</div>
+  <button class="checkout-btn">Оформить заказ</button>
 </div>
 
 <footer>
-<div>Телефон: +7-900-015-15-15</div>
-<div>Почта: krasovka@gmail.com</div>
-<div>Адрес: г. Угинск ул. Тамары 23</div>
+  <div>Телефон: <a href="tel:+79000151515" class="contact-link">+7-900-015-15-15</a></div>
+  <div>Почта: <a href="mailto:krasovka@gmail.com" class="contact-link">krasovka@gmail.com</a></div>
+  <div class="footer-address">Адрес: г. Угинск ул. Тамары 23</div>
 </footer>
 
 <script>
@@ -67,18 +43,42 @@ const cartContainer = document.getElementById('cartItems');
 const totalPriceEl = document.getElementById('totalPrice');
 const checkoutBtn = document.querySelector('.checkout-btn');
 
+function parsePrice(price) {
+    if (typeof price === 'number' && !isNaN(price)) return price;
+    if (!price || price === 'не число' || price === 'NaN') return 0;
+    
+    let cleanPrice = String(price).replace(/[^0-9.,]/g, '');
+    cleanPrice = cleanPrice.replace(',', '.');
+    
+    let numPrice = parseFloat(cleanPrice);
+    return isNaN(numPrice) ? 0 : numPrice;
+}
+
+function updateCartBadge(){
+    const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+    const badge = document.querySelector('.cart-badge');
+    if(badge){
+        badge.textContent = totalCount;
+        badge.classList.toggle('active', totalCount > 0);
+    }
+}
+
 function renderCart(){
     cartContainer.innerHTML = '';
     let total = 0;
 
     if(cart.length === 0){
-        cartContainer.innerHTML = '<h2 style="text-align:center;">Корзина пуста</h2>';
+        cartContainer.innerHTML = '<h2 style="text-align:center;color:#666;">Корзина пуста</h2>';
         totalPriceEl.innerText = 'Итого: 0 ₽';
+        updateCartBadge();
         return;
     }
 
-    cart.forEach((item,index)=>{
-        total += item.price * item.quantity;
+    cart.forEach((item, index)=>{
+        const price = parsePrice(item.price);
+        const itemTotal = price * (item.quantity || 1);
+        total += itemTotal;
+
         const itemDiv = document.createElement('div');
         itemDiv.classList.add('cart-item');
 
@@ -86,48 +86,61 @@ function renderCart(){
             <img src="${item.image}" alt="${item.name}">
             <div class="cart-item-details">
                 <h3>${item.name}</h3>
-                <div class="price">${item.price.toLocaleString()} ₽</div>
+                <div class="price">${price.toLocaleString()} ₽</div>
                 <div><strong>Размер:</strong> ${item.size || 'Не указан'}</div>
                 <div class="quantity">
-                    <button class="decrease">-</button>
-                    <span>${item.quantity}</span>
-                    <button class="increase">+</button>
-                    <button class="remove-btn">Удалить</button>
+                    <button class="decrease" data-index="${index}">−</button>
+                    <span class="qty-val">${item.quantity || 1}</span>
+                    <button class="increase" data-index="${index}">+</button>
+                    <button class="remove-btn" data-index="${index}">Удалить</button>
                 </div>
             </div>
+            <div class="item-total-side">
+                <div class="item-total-label">Сумма:</div>
+                <div class="item-total-value">${itemTotal.toLocaleString()} ₽</div>
+            </div>
         `;
-
-        const decreaseBtn = itemDiv.querySelector('.decrease');
-        const increaseBtn = itemDiv.querySelector('.increase');
-        const removeBtn = itemDiv.querySelector('.remove-btn');
-
-        decreaseBtn.addEventListener('click', ()=>{
-            if(item.quantity > 1){
-                item.quantity--;
-                localStorage.setItem('cart', JSON.stringify(cart));
-                renderCart();
-            }
-        });
-
-        increaseBtn.addEventListener('click', ()=>{
-            item.quantity++;
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-        });
-
-        removeBtn.addEventListener('click', ()=>{
-            cart.splice(index, 1);
-            localStorage.setItem('cart', JSON.stringify(cart));
-            renderCart();
-        });
-
         cartContainer.appendChild(itemDiv);
     });
 
     totalPriceEl.innerText = 'Итого: ' + total.toLocaleString() + ' ₽';
+    updateCartBadge();
+    attachCartEvents();
 }
 
-// Оформление заказа с удалением из избранного
+function attachCartEvents(){
+    document.querySelectorAll('.decrease').forEach(btn=>{
+        btn.addEventListener('click', function(){
+            const idx = parseInt(this.dataset.index);
+            if(cart[idx].quantity <= 1){
+                cart.splice(idx, 1);
+            } else {
+                cart[idx].quantity--;
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        });
+    });
+
+    document.querySelectorAll('.increase').forEach(btn=>{
+        btn.addEventListener('click', function(){
+            const idx = parseInt(this.dataset.index);
+            cart[idx].quantity = (cart[idx].quantity || 1) + 1;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        });
+    });
+
+    document.querySelectorAll('.remove-btn').forEach(btn=>{
+        btn.addEventListener('click', function(){
+            const idx = parseInt(this.dataset.index);
+            cart.splice(idx, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        });
+    });
+}
+
 checkoutBtn.addEventListener('click', () => {
     if(cart.length === 0){
         alert('Корзина пуста!');
@@ -136,33 +149,42 @@ checkoutBtn.addEventListener('click', () => {
 
     let orders = JSON.parse(localStorage.getItem('orders') || '[]');
 
-    cart.forEach((item,index)=>{
-        orders.push({
-            id: orders.length,
-            name: item.name,
-            image: item.image,
-            size: item.size,
-            price: item.price,
-            quantity: item.quantity,
-            status: 'Оформлен'
-        });
+    const orderItems = cart.map(item => ({
+        name: item.name,
+        image: item.image,
+        size: item.size,
+        price: parsePrice(item.price),
+        quantity: item.quantity || 1
+    }));
 
-        // Удаляем из избранного, если есть
-        favorites = favorites.filter(f=>!(f.name === item.name && f.size === item.size));
-        localStorage.setItem('favorites', JSON.stringify(favorites));
+    const totalAmount = orderItems.reduce((sum, item) => 
+        sum + (item.price * item.quantity), 0
+    );
+
+    orders.push({
+        id: orders.length,
+        items: orderItems,
+        totalAmount: totalAmount,
+        status: 'Оформлен',
+        date: new Date().toLocaleString('ru-RU')
     });
 
+    cart.forEach(item => {
+        favorites = favorites.filter(f => !(f.name === item.name && f.size === item.size));
+    });
+
+    localStorage.setItem('favorites', JSON.stringify(favorites));
     localStorage.setItem('orders', JSON.stringify(orders));
+
     let bonuses = Number(localStorage.getItem('bonuses') || 0);
+    bonuses += 500;
+    localStorage.setItem('bonuses', bonuses);
 
-// +500 бонусов за каждый оформленный заказ
-bonuses += 500;
-
-localStorage.setItem('bonuses', bonuses);
-    cart = [];
     localStorage.removeItem('cart');
+    cart = [];
     renderCart();
-    alert('Заказ успешно оформлен!');
+    alert('Заказ оформлен! +500 бонусов');
+    // ✅ Убран редирект в личный кабинет
 });
 
 renderCart();

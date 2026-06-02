@@ -4,346 +4,175 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Личный кабинет — НА ПОДЪЕМЕ</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;}
-body{font-family:'Montserrat',sans-serif;background:#9d9d9d;display:flex;flex-direction:column;color:#111;}
-header{width:100%;height:82px;background:#f8f8f8;display:flex;align-items:center;justify-content:space-between;padding:0 35px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
-.logo-wrapper{display:flex;align-items:center;gap:16px;}
-.logo-circle{width:58px;height:58px;border-radius:50%;overflow:hidden;background:white;box-shadow:0 5px 14px rgba(0,0,0,0.12);}
-.logo-circle img{width:100%;height:100%;object-fit:cover;}
-.logo-wrapper h1{font-size:22px;font-weight:800;letter-spacing:1px;}
-nav{display:flex;gap:36px;}
-nav a{text-decoration:none;color:#111;font-weight:500;transition:0.25s;position:relative;}
-nav a:hover{color:#ff5b2e;}
-nav a::after{content:'';width:0%;height:2px;background:#ff5b2e;position:absolute;left:0;bottom:-6px;transition:0.25s;}
-nav a:hover::after{width:100%;}
-.wrapper{width:93%;margin:30px auto;flex:1;}
-.page-title{font-size:64px;font-weight:800;margin-bottom:28px;}
-.top-section{display:grid;grid-template-columns:2fr 1fr;gap:28px;margin-bottom:32px;}
-.profile-card{background:#f5f5f5;border-radius:30px;padding:40px;display:flex;align-items:center;gap:30px;box-shadow:0 12px 28px rgba(0,0,0,0.12);}
-.avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#111,#2c2c2c);display:flex;align-items:center;justify-content:center;font-size:42px;color:white;font-weight:700;}
-.profile-info h2{font-size:34px;margin-bottom:10px;}
-.profile-info p{font-size:20px;color:#555;margin-bottom:8px;}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.stat-card{background:#f5f5f5;border-radius:24px;padding:28px;box-shadow:0 10px 24px rgba(0,0,0,0.12);transition:0.3s;text-align:center;}
-.stat-card:hover{transform:translateY(-6px);}
-.stat-card a{text-decoration:none;color:#111;display:block;}
-.stat-card h3{font-size:20px;margin-bottom:12px;transition:0.3s;}
-.stat-card span{font-size:42px;font-weight:700;}
-.stat-card:hover h3{color:#ff5b2e;}
-.section-title{font-size:42px;font-weight:700;margin-bottom:24px;}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-bottom:34px;}
-.action-card{background:#f5f5f5;border-radius:26px;padding:34px 28px;height:190px;display:flex;flex-direction:column;justify-content:space-between;transition:0.3s;box-shadow:0 10px 24px rgba(0,0,0,0.12);cursor:pointer;text-decoration:none;color:#111;}
-.action-card:hover{transform:translateY(-8px);box-shadow:0 18px 35px rgba(0,0,0,0.16);}
-.action-card h3{font-size:28px;color:#111;transition:0.3s;}
-.action-card p{font-size:18px;color:#555;line-height:1.5;}
-.action-card:hover h3{color:#ff5b2e;}
-.orders{background:#f5f5f5;border-radius:30px;padding:34px;box-shadow:0 10px 24px rgba(0,0,0,0.12);margin-bottom:34px;}
-.orders h2{font-size:38px;margin-bottom:24px;}
-.order{background:#e3e3e3;padding:22px 26px;border-radius:18px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;font-size:20px;transition:0.25s;}
-.order:hover{background:#d9d9d9;transform:scale(1.01);}
-.status{padding:10px 18px;border-radius:12px;font-size:15px;font-weight:700;color:white;}
-.done{background:#2dbb55;}
-.delivery{background:#ff8a2d;}
-.cancel{background:#ff4d4d;}
-.support{background:#f5f5f5;border-radius:30px;padding:32px 36px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 24px rgba(0,0,0,0.12);margin-bottom:40px;}
-.support h2{font-size:36px;}
-.support button{width:240px;height:58px;border:none;border-radius:18px;background:linear-gradient(135deg,#111,#2c2c2c);color:white;font-size:17px;font-weight:700;cursor:pointer;transition:0.3s;}
-.support button:hover{background:linear-gradient(135deg,#ff5b2e,#ff7b57);transform:translateY(-4px);}
-footer{width:100%;background:#f5f5f5;padding:32px 40px;display:flex;justify-content:space-between;align-items:center;font-size:18px;box-shadow:0 -3px 10px rgba(0,0,0,0.08);margin-top:auto;}
-footer div{flex:1;text-align:center;font-weight:500;}
-@media(max-width:1200px){.top-section{grid-template-columns:1fr;}.actions{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:850px){.page-title{font-size:48px;}.actions{grid-template-columns:1fr;}.stats{grid-template-columns:1fr;}.profile-card{flex-direction:column;text-align:center;}.support{flex-direction:column;gap:20px;}footer{flex-direction:column;gap:16px;}nav{display:none;}}
-</style>
+<link rel="stylesheet" type="text/css" href="kab.css">
 </head>
 <body>
 
 <header>
-<div class="logo-wrapper">
-<div class="logo-circle">
-<img src="logo.png">
-</div>
-<h1>НА ПОДЪЕМЕ</h1>
-</div>
-<nav>
-<a href="index.html">Главная</a>
-<a href="katalog.html">Каталог</a>
-<a href="onas.html">О нас</a>
-<a href="kab.html">Личный кабинет</a>
-<a href="korzina.html">Корзина</a>
-</nav>
+  <div class="logo-wrapper">
+    <div class="logo-circle"><a href="index.html"><img src="logo.png" alt="logo"></a></div>
+    <h1>НА ПОДЪЕМЕ</h1>
+  </div>
+  <nav>
+    <a href="index.html">Главная</a>
+    <a href="katalog.html">Каталог</a>
+    <a href="onas.html">О нас</a>
+    <a href="kab.html">Личный кабинет</a>
+    <a href="korzina.html" class="nav-cart-link">Корзина <span class="cart-badge">0</span></a>
+  </nav>
 </header>
 
 <div class="wrapper">
+  <h1 class="page-title">Личный кабинет</h1>
 
-<h1 class="page-title">
-Личный кабинет
-</h1>
+  <div class="top-section">
+    
+    <div class="profile-card" onclick="window.location.href='nastrojki.html'" style="cursor:pointer;">
+      <div class="avatar">А</div>
+      <div class="profile-info">
+        <h2 id="userFullName">Пользователь</h2>
+        <p id="userEmail"></p>
+        <p>Участник программы бонусов</p>
+      </div>
+    </div>
 
-<div class="top-section">
+    <div class="stats">
+      <div class="stat-card">
+        <a href="zakazi.html">
+          <h3>Заказы</h3>
+          <span id="ordersCount">0</span>
+        </a>
+      </div>
+      <div class="stat-card">
+        <a href="izbr.html">
+          <h3>Избранное</h3>
+          <span id="favoritesCount">0</span>
+        </a>
+      </div>
+      <div class="stat-card">
+        <a href="bonusy.html">
+          <h3>Бонусы</h3>
+          <span id="bonusCount">0</span>
+        </a>
+      </div>
+    </div>
 
-<div class="profile-card">
+  </div>  
 
-<div class="avatar">
-А
-</div>
+  <div class="orders">
+    <h2>Последние заказы</h2>
+    <div id="ordersContainer"></div>
+  </div>
 
-<div class="profile-info">
-
-<h2 id="userFullName">
-Пользователь
-</h2>
-
-<p id="userEmail">
-email@example.com
-</p>
-
-<p>
-Участник программы бонусов
-</p>
-
-</div>
-
-</div>
-
-<div class="stats">
-
-<div class="stat-card">
-<a href="zakazi.html">
-<h3>Заказы</h3>
-<span id="ordersCount">0</span>
-</a>
-</div>
-
-<div class="stat-card">
-<a href="izbr.html">
-<h3>Избранное</h3>
-<span id="favoritesCount">0</span>
-</a>
-</div>
-
-<div class="stat-card">
-<a href="bonusy.html">
-<h3>Бонусы</h3>
-<span id="bonusCount">0</span>
-</a>
-</div>
-
-</div>
-
-</div>
-
-<h2 class="section-title">
-Быстрые действия
-</h2>
-
-<div class="actions">
-
-<a href="zakazi.html" class="action-card">
-<h3>Мои заказы</h3>
-<p>Просмотр всех оформленных покупок и текущих доставок.</p>
-</a>
-
-<a href="izbr.html" class="action-card">
-<h3>Избранное</h3>
-<p>Сохранённые модели кроссовок и рекомендации.</p>
-</a>
-
-<a href="adress.html" class="action-card">
-<h3>Адреса</h3>
-<p>Управление адресами доставки и контактами.</p>
-</a>
-
-<a href="nastrojki.html" class="action-card">
-<h3>Настройки</h3>
-<p>Изменение профиля, пароля и уведомлений.</p>
-</a>
-
-</div>
-
-<div class="orders">
-
-<h2>Последние заказы</h2>
-
-<div id="ordersContainer"></div>
-
-</div>
-
-<div class="support">
-
-<h2>Нужна помощь?</h2>
-
-<a href="support.html">
-<button>Связаться с поддержкой</button>
-</a>
-
-</div>
-
+  <div class="support">
+    <h2>Нужна помощь?</h2>
+    <a href="support.html"><button>Связаться с поддержкой</button></a>
+  </div>
 </div>
 
 <footer>
-
-<div>
-Телефон: +7-900-015-15-15
-</div>
-
-<div>
-Почта: krasovka@gmail.com
-</div>
-
-<div>
-Адрес: г. Угинск ул. Тамары 23
-</div>
-
+  <div>Телефон: <a href="tel:+79000151515" class="contact-link">+7-900-015-15-15</a></div>
+  <div>Почта: <a href="mailto:krasovka@gmail.com" class="contact-link">krasovka@gmail.com</a></div>
+  <div class="footer-address">Адрес: г. Угинск ул. Тамары 23</div>
 </footer>
 
 <script>
-    function updateBonuses(){
-
-    const bonuses = Number(
-        localStorage.getItem('bonuses') || 0
-    );
-
-    document.getElementById(
-        'bonusCount'
-    ).textContent = bonuses;
+function updateBonuses(){
+  const bonuses = Number(localStorage.getItem('bonuses') || 0);
+  document.getElementById('bonusCount').textContent = bonuses;
 }
 
-updateBonuses();
-
-window.addEventListener(
-    'storage',
-    updateBonuses
-);
-// Обновление количества избранного
 function renderOrders() {
+  const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  const container = document.getElementById('ordersContainer');
+  container.innerHTML = '';
 
-    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+  if(orders.length === 0){
+    container.innerHTML = '<h3 style="text-align:center;">У вас пока нет заказов</h3>';
+    document.getElementById('ordersCount').textContent = 0;
+    return;
+  }
 
-    const container = document.getElementById('ordersContainer');
+  orders.forEach((order,index)=>{
+    const orderDiv = document.createElement('div');
+    orderDiv.classList.add('order');
 
-    container.innerHTML = '';
-
-    if(orders.length === 0){
-
-        container.innerHTML =
-        '<h3 style="text-align:center;">У вас пока нет заказов</h3>';
-
-        document.getElementById('ordersCount').textContent = 0;
-
-        return;
+    let statusClass = '';
+    switch(order.status){
+      case 'Оформлен': statusClass = 'done'; break;
+      case 'В пути': statusClass = 'delivery'; break;
+      case 'Отменён': statusClass = 'cancel'; break;
+      case 'Доставлен': statusClass = 'done'; break;
+      default: statusClass = 'done';
     }
 
-    orders.forEach((order,index)=>{
+    orderDiv.innerHTML = `
+      <span>Заказ #${1000 + index} — ${order.name}</span>
+      <div class="status ${statusClass}">${order.status}</div>
+    `;
+    container.appendChild(orderDiv);
+  });
 
-        const orderDiv = document.createElement('div');
-
-        orderDiv.classList.add('order');
-
-        let statusClass = '';
-
-        switch(order.status){
-
-            case 'Оформлен':
-                statusClass = 'done';
-                break;
-
-            case 'В пути':
-                statusClass = 'delivery';
-                break;
-
-            case 'Отменён':
-                statusClass = 'cancel';
-                break;
-
-            case 'Доставлен':
-                statusClass = 'done';
-                break;
-
-            default:
-                statusClass = 'done';
-        }
-
-        orderDiv.innerHTML = `
-        <span>
-        Заказ #${1000 + index} — ${order.name}
-        </span>
-
-        <div class="status ${statusClass}">
-        ${order.status}
-        </div>
-        `;
-
-        container.appendChild(orderDiv);
-
-    });
-
-    document.getElementById('ordersCount').textContent = orders.length;
+  document.getElementById('ordersCount').textContent = orders.length;
 }
 
-renderOrders();
-
-// Счётчик избранного
 function updateFavoritesCount(){
-
-    const favorites = JSON.parse(
-        localStorage.getItem('favorites') || '[]'
-    );
-
-    document.getElementById('favoritesCount').textContent =
-        favorites.length;
+  const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+  document.getElementById('favoritesCount').textContent = favorites.length;
 }
-// Загрузка данных пользователя
+
 function loadUser(){
-
-    const user = JSON.parse(
-        localStorage.getItem('user') || '{}'
-    );
-
-    const fullName =
-    `${user.firstName || ''} ${user.lastName || ''}`
-    .trim();
-
-    document.getElementById(
-        'userFullName'
-    ).textContent =
-    fullName || 'Пользователь';
-
-    document.getElementById(
-        'userEmail'
-    ).textContent =
-    user.email || 'Email не указан';
-
-    // Буква в аватаре
-    const avatar =
-    document.querySelector('.avatar');
-
-    avatar.textContent =
-    user.firstName
-    ? user.firstName[0].toUpperCase()
-    : 'П';
-
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const fullName = `${user.firstName || ''} ${user.lastName || ''}`.trim();
+  document.getElementById('userFullName').textContent = fullName || 'Пользователь';
+  
+  const userEmailEl = document.getElementById('userEmail');
+  if(user.email && user.email.trim() !== ''){
+    userEmailEl.textContent = user.email;
+    userEmailEl.style.display = 'block';
+  } else {
+    userEmailEl.style.display = 'none';
+  }
+  
+  const avatar = document.querySelector('.avatar');
+  avatar.textContent = user.firstName ? user.firstName[0].toUpperCase() : 'П';
 }
+
 
 loadUser();
-
-window.addEventListener(
-    'storage',
-    loadUser
-);
-
+updateBonuses();
 updateFavoritesCount();
+renderOrders();
 
-window.addEventListener(
-    'storage',
-    updateFavoritesCount
-);
+
+window.addEventListener('storage', loadUser);
+window.addEventListener('storage', updateBonuses);
+window.addEventListener('storage', updateFavoritesCount);
 window.addEventListener('storage', renderOrders);
+// Обновление счётчика корзины в шапке
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const totalCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+  const badge = document.querySelector('.cart-badge');
+  
+  if (badge) {
+    badge.textContent = totalCount;
+    badge.classList.toggle('active', totalCount > 0);
+  }
+}
+
+
+updateCartBadge();
+
+
+window.addEventListener('storage', (e) => {
+  if (e.key === 'cart' || !e.key) {
+    updateCartBadge();
+  }
+});
+
 </script>
 </body>
 </html>
